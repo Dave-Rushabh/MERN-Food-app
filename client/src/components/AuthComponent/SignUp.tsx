@@ -184,15 +184,6 @@ const SignUp = () => {
           )}
         </Formik>
       </div>
-      {/* {toasterMessage ? (
-        <Toaster
-          status="success"
-          title={toasterMessage}
-          description="Now you can enjoy"
-        />
-      ) : (
-        <></>
-      )} */}
     </>
   );
 };
