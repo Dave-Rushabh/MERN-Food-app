@@ -1,0 +1,33 @@
+.auth-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  align-items: flex-start;
+  justify-content: flex-start;
+  padding: 2rem;
+}
+
+.AuthButtonsWrapper {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+.active-btn {
+  @apply text-white bg-app_primary_light h-12 px-4 rounded-md text-lg border-2 border-app_primary_light;
+
+  /* hover effect css */
+  @apply hover:bg-app_primary_dark hover:border-2 hover:border-app_primary_dark;
+}
+
+.login-btn,
+.signup-btn {
+  @apply text-lg text-app_primary_dark px-4 rounded-md font-medium h-12 border-2 border-app_primary_dark;
+
+  /* hover effect css */
+  @apply hover:bg-app_primary_light hover:text-white hover:border-2 hover:border-app_primary_light;
+}
+
+.or-text {
+  @apply rounded-full p-2 bg-app_secondary_light text-sm;
+}
