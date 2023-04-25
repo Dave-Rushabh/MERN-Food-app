@@ -8,21 +8,25 @@ export const setToken = (token: string) => {
   sessionStorage.setItem('token', token);
 };
 
+export const setUser = (user: any) => {
+  sessionStorage.setItem('user', JSON.stringify(user));
+};
+
 export const getToken = () => sessionStorage.getItem('token');
 
-export const handleSignUp = async (values: any) => {
+export const handleSignUpUtils = async (values: any) => {
   try {
     const response = await axios({
       method: 'POST',
       url: `${API_ENDPOINT}/api/sign-up`,
       data: values,
     });
-    const {
-      data: { token, message },
-    } = response;
+    const { data } = response;
+    const { token, user } = data;
     setToken(token);
-    return message;
-  } catch (error) {
-    console.log(error);
+    setUser(user);
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message ?? error?.message);
   }
 };

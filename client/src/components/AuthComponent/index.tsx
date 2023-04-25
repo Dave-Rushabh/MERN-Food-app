@@ -64,7 +64,7 @@ const AuthComponent = () => {
         </div>
         <div className="form-container">
           <div className="text-2xl text-app_primary_dark font-semibold">
-            Let us get you through the app by Login / Signup
+            Let us get you through the app
           </div>
           <AuthButtonsWrapper>
             <LoginButton />

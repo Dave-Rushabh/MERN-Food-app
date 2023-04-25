@@ -1,8 +1,11 @@
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
-import { handleSignUp } from '../../../utils/authUtils';
 import { useToast } from '@chakra-ui/react';
+import { useDispatch, useSelector } from 'react-redux';
+import { HANDLE_SIGN_UP } from '../../../redux/slice/authSlice';
+import { Spinner } from '@chakra-ui/react';
 
 const schema = Yup.object().shape({
   username: Yup.string().required('User Name is required'),
@@ -26,26 +29,42 @@ const initialValues = {
 const SignUp = () => {
   const toast = useToast();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { signUpStatusMsg, isSignUpSuccess, isSigninUpLoading } = useSelector(
+    (state: any) => state.authReducer.signUp
+  );
+
+  useEffect(() => {
+    if (signUpStatusMsg?.length) {
+      if (isSignUpSuccess) {
+        toast({
+          title: signUpStatusMsg,
+          status: 'success',
+          duration: 6000,
+          isClosable: true,
+          position: 'top',
+        });
+        navigate('/');
+      } else {
+        toast({
+          title: signUpStatusMsg,
+          status: 'error',
+          duration: 6000,
+          isClosable: true,
+          position: 'top',
+        });
+      }
+    }
+  }, [signUpStatusMsg]);
 
   return (
     <>
       <div className="max-w-lg">
-        <h1 className="text-2xl font-bold mb-4">Sign Up</h1>
         <Formik
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={async (values, { resetForm }) => {
-            const message = await handleSignUp(values);
-            if (message) {
-              toast({
-                title: message,
-                status: 'success',
-                duration: 6000,
-                isClosable: true,
-                position: 'top',
-              });
-              navigate('/');
-            }
+            dispatch(HANDLE_SIGN_UP(values));
             resetForm();
           }}
         >
@@ -62,7 +81,7 @@ const SignUp = () => {
                   type="text"
                   name="username"
                   id="username"
-                  className={` appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  className={` appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     touched.username && errors.username ? 'border-red-500' : ''
                   }`}
                 />
@@ -83,7 +102,7 @@ const SignUp = () => {
                   type="date"
                   name="dateOfBirth"
                   id="dateOfBirth"
-                  className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     touched.dateOfBirth && errors.dateOfBirth
                       ? 'border-red-500'
                       : ''
@@ -106,7 +125,7 @@ const SignUp = () => {
                   type="email"
                   name="email"
                   id="email"
-                  className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     touched.email && errors.email ? 'border-red-500' : ''
                   }`}
                 />
@@ -130,14 +149,14 @@ const SignUp = () => {
                     id="countryCode"
                     value="+91"
                     disabled
-                    className={`appearance-none border rounded w-16 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                    className={`appearance-none border-2 mr-2 border-app_primary_light rounded w-16 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
                   />
 
                   <Field
                     type="text"
                     name="contactNo"
                     id="contactNo"
-                    className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                    className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                       touched.contactNo && errors.contactNo
                         ? 'border-red-500'
                         : ''
@@ -166,7 +185,7 @@ const SignUp = () => {
                   type="password"
                   name="password"
                   id="password"
-                  className={`appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                  className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
                     touched.password && errors.password ? 'border-red-500' : ''
                   } focus:border-blue-500 focus:shadow-blue-outline`}
                 />
@@ -178,9 +197,9 @@ const SignUp = () => {
               </div>
               <button
                 type="submit"
-                className="bg-app_primary_light hover:bg-app_primary_dark text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
+                className="bg-app_primary_light hover:bg-app_primary_dark w-36 h-12 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
               >
-                Sign Up
+                {isSigninUpLoading ? <Spinner size="md" /> : 'Sign Up'}
               </button>
             </Form>
           )}
