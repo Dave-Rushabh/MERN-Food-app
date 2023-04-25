@@ -14,7 +14,7 @@
 }
 
 .active-btn {
-  @apply text-white bg-app_primary_light h-12 px-4 rounded-md text-lg border-2 border-app_primary_light;
+  @apply text-white bg-app_primary_light h-12 w-40 px-4 rounded-md text-lg border-2 border-app_primary_light;
 
   /* hover effect css */
   @apply hover:bg-app_primary_dark hover:border-2 hover:border-app_primary_dark;
@@ -22,7 +22,7 @@
 
 .login-btn,
 .signup-btn {
-  @apply text-lg text-app_primary_dark px-4 rounded-md font-medium h-12 border-2 border-app_primary_dark;
+  @apply text-lg text-app_primary_dark px-4 w-40 rounded-md font-medium h-12 border-2 border-app_primary_dark;
 
   /* hover effect css */
   @apply hover:bg-app_primary_light hover:text-white hover:border-2 hover:border-app_primary_light;
@@ -30,4 +30,20 @@
 
 .or-text {
   @apply rounded-full p-2 bg-app_secondary_light text-sm;
+}
+
+.img-form-wrapper {
+  @apply flex flex-1 items-start gap-8;
+}
+
+.img-container {
+  @apply w-1/2;
+}
+
+.img-container > img {
+  @apply rounded-lg;
+}
+
+.form-container {
+  @apply w-1/2 flex flex-col gap-4;
 }

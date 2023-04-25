@@ -2,6 +2,7 @@ import { useReducer } from 'react';
 import './index.css';
 import Login from './Login';
 import SignUp from './SignUp';
+import AuthBanner from '../AuthBanner';
 
 interface AuthComponentState {
   login: boolean;
@@ -56,13 +57,23 @@ const AuthComponent = () => {
   // ======== Return of <AuthComponent /> ========
   return (
     <div className="auth-wrapper">
-      <AuthButtonsWrapper>
-        <LoginButton />
-        <div className="or-text">Or</div>
-        <SignupButton />
-      </AuthButtonsWrapper>
-      {state.login && <Login />}
-      {state.signup && <SignUp />}
+      <AuthBanner />
+      <div className="img-form-wrapper">
+        <div className="img-container">
+          <img src="../../../assets/login-screen-image.jpg" alt="" />
+        </div>
+        <div className="form-container">
+          <div className="text-2xl text-app_primary_dark font-semibold">
+            Let us get you through the app by Login / Signup
+          </div>
+          <AuthButtonsWrapper>
+            <LoginButton />
+            <SignupButton />
+          </AuthButtonsWrapper>
+          {state.login && <Login />}
+          {state.signup && <SignUp />}
+        </div>
+      </div>
     </div>
   );
 };

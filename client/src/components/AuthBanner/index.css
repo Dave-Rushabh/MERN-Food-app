@@ -1,0 +1,21 @@
+.banner-container {
+  @apply relative overflow-hidden;
+  width: 95vw;
+  border-radius: 1rem;
+}
+
+.banner-wrapper {
+  @apply absolute w-full h-full bg-gradient-to-b from-app_secondary_light to-transparent z-10 bottom-0;
+}
+
+.banner-header {
+  @apply relative z-20 flex items-center justify-center px-8 py-16 text-center flex-col;
+}
+
+.header-main {
+  @apply text-4xl font-bold mb-4 text-app_primary_dark;
+}
+
+.header-sub {
+  @apply text-xl mb-8 text-app_primary_dark;
+}

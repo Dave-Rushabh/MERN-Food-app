@@ -36,14 +36,16 @@ const SignUp = () => {
           validationSchema={schema}
           onSubmit={async (values, { resetForm }) => {
             const message = await handleSignUp(values);
-            toast({
-              title: message,
-              status: 'success',
-              duration: 6000,
-              isClosable: true,
-              position: 'top',
-            });
-            navigate('/');
+            if (message) {
+              toast({
+                title: message,
+                status: 'success',
+                duration: 6000,
+                isClosable: true,
+                position: 'top',
+              });
+              navigate('/');
+            }
             resetForm();
           }}
         >
