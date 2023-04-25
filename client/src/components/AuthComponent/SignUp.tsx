@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -6,13 +6,19 @@ import { useToast } from '@chakra-ui/react';
 import { useDispatch, useSelector } from 'react-redux';
 import { HANDLE_SIGN_UP } from '../../../redux/slice/authSlice';
 import { Spinner } from '@chakra-ui/react';
+import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 
 const schema = Yup.object().shape({
-  username: Yup.string().required('User Name is required'),
-  dateOfBirth: Yup.date().required('Date of birth is required'),
+  username: Yup.string()
+    .max(20, 'Username must be at most 20 characters')
+    .matches(/^[a-zA-Z0-9]+$/, 'Username must not include special characters')
+    .required('Username is required'),
+  dateOfBirth: Yup.date()
+    .max(new Date(), "Date of birth can't be in the future")
+    .required('Date of birth is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   contactNo: Yup.string()
-    .matches(/^\d{10}$/, 'Invalid phone number')
+    .matches(/^\d{10}$/, 'Phone number must be of 10 digits')
     .required('Phone number is required'),
   password: Yup.string().required('Password is required'),
 });
@@ -33,6 +39,7 @@ const SignUp = () => {
   const { signUpStatusMsg, isSignUpSuccess, isSigninUpLoading } = useSelector(
     (state: any) => state.authReducer.signUp
   );
+  const [showPassword, setShowPassword] = useState(false);
 
   useEffect(() => {
     if (signUpStatusMsg?.length) {
@@ -181,14 +188,29 @@ const SignUp = () => {
                 >
                   Password <span className="text-red-500">*</span>
                 </label>
-                <Field
-                  type="password"
-                  name="password"
-                  id="password"
-                  className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
-                    touched.password && errors.password ? 'border-red-500' : ''
-                  } focus:border-blue-500 focus:shadow-blue-outline`}
-                />
+                <div className="flex items-center">
+                  <div
+                    onClick={() => setShowPassword(!showPassword)}
+                    className={`appearance-none border-2 mr-2 hover:cursor-pointer border-app_primary_light flex justify-center rounded w-16 py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline`}
+                  >
+                    {showPassword ? (
+                      <AiFillEye style={{ fontSize: '1.1rem' }} />
+                    ) : (
+                      <AiFillEyeInvisible style={{ fontSize: '1.1rem' }} />
+                    )}
+                  </div>
+                  <Field
+                    type={showPassword ? 'text' : 'password'}
+                    name="password"
+                    id="password"
+                    className={`appearance-none border-2 border-app_primary_light rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline ${
+                      touched.password && errors.password
+                        ? 'border-red-500'
+                        : ''
+                    } focus:border-blue-500 focus:shadow-blue-outline`}
+                  />
+                </div>
+
                 <ErrorMessage
                   name="password"
                   component="p"
