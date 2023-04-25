@@ -9,10 +9,16 @@ const handleSignUp = expressAsyncHandler(async (req, res) => {
     const { username, dateOfBirth, email, contactNo, countryCode, password } =
       req.body;
 
-    // Check if user already exists in the database
-    const existingUser = await User.findOne({ email });
-    if (existingUser) {
-      return res.status(409).json({ message: "User already exists" });
+    // Check if user's email already exists in the database
+    const existingUserByEmail = await User.findOne({ email });
+    if (existingUserByEmail) {
+      return res.status(409).json({ message: "email already exists" });
+    }
+
+    // Check if user's username already exists in the database
+    const existingUserByUsername = await User.findOne({ username });
+    if (existingUserByUsername) {
+      return res.status(409).json({ message: "username already exists" });
     }
 
     // Hash the password using bcrypt
