@@ -1,9 +1,11 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import {
+  HANDLE_LOGIN_FAIL,
+  HANDLE_LOGIN_SUCCESS,
   HANDLE_SIGN_UP_SUCCESS,
   HANDLE_SING_UP_FAIL,
 } from '../../slice/authSlice';
-import { handleSignUpUtils } from '../../../utils/authUtils';
+import { handleLoginUtils, handleSignUpUtils } from '../../../utils/authUtils';
 
 interface handleSignUpSagaAction {
   type: string;
@@ -13,6 +15,13 @@ interface handleSignUpSagaAction {
     email: string;
     contactNo: string;
     countryCode: string;
+    password: string;
+  };
+}
+interface handleLoginSagaAction {
+  type: string;
+  payload: {
+    email: string;
     password: string;
   };
 }
@@ -27,9 +36,20 @@ function* handleSignUpSaga(action: handleSignUpSagaAction) {
   }
 }
 
+function* handleLoginSaga(action: handleLoginSagaAction) {
+  try {
+    const { payload } = action;
+    const { message, user: userData } = yield call(handleLoginUtils, payload);
+    yield put(HANDLE_LOGIN_SUCCESS({ userData, message }));
+  } catch (error) {
+    yield put(HANDLE_LOGIN_FAIL(error));
+  }
+}
+
 function* authSaga() {
   // slice name / action name
   yield takeLatest('AUTH_SLICE/HANDLE_SIGN_UP', handleSignUpSaga);
+  yield takeLatest('AUTH_SLICE/HANDLE_LOGIN', handleLoginSaga);
 }
 
 export default authSaga;

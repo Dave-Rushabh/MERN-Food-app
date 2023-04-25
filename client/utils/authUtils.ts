@@ -30,3 +30,20 @@ export const handleSignUpUtils = async (values: any) => {
     throw new Error(error?.response?.data?.message ?? error?.message);
   }
 };
+
+export const handleLoginUtils = async (values: any) => {
+  try {
+    const response = await axios({
+      method: 'POST',
+      url: `${API_ENDPOINT}/api/login`,
+      data: values,
+    });
+    const { data } = response;
+    const { token, user } = data;
+    setToken(token);
+    setUser(user);
+    return data;
+  } catch (error: any) {
+    throw new Error(error?.response?.data?.message ?? error?.message);
+  }
+};

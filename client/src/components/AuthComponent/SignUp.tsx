@@ -11,7 +11,7 @@ import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 const schema = Yup.object().shape({
   username: Yup.string()
     .max(20, 'Username must be at most 20 characters')
-    .matches(/^[a-zA-Z0-9]+$/, 'Username must not include special characters')
+    .matches(/^[a-zA-Z0-9 ]+$/, 'Username must not include special characters')
     .required('Username is required'),
   dateOfBirth: Yup.date()
     .max(new Date(), "Date of birth can't be in the future")
