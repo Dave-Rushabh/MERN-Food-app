@@ -1,7 +1,8 @@
 .banner-container {
   @apply relative overflow-hidden;
-  width: 95vw;
+  width: 95%;
   border-radius: 1rem;
+  margin: auto;
 }
 
 .banner-wrapper {

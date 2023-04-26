@@ -52,7 +52,7 @@ const Login = () => {
 
   return (
     <>
-      <div className="max-w-lg">
+      <div className="max-w-lg login-form-wrapper">
         <Formik
           initialValues={initialValues}
           validationSchema={schema}

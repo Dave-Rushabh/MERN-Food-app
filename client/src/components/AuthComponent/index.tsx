@@ -63,7 +63,7 @@ const AuthComponent = () => {
           <img src="../../../assets/login-screen-image.jpg" alt="" />
         </div>
         <div className="form-container">
-          <div className="text-2xl text-app_primary_dark font-semibold">
+          <div className="auth-switcher-header">
             Let us get you through the app
           </div>
           <AuthButtonsWrapper>
