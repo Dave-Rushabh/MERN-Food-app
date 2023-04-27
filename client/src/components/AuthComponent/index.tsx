@@ -3,6 +3,7 @@ import './index.css';
 import Login from './Login';
 import SignUp from './SignUp';
 import AuthBanner from '../AuthBanner';
+import { LOGIN_SCREEN_IMAGE_CREDITS_LINK } from '../../../constants/credits';
 
 interface AuthComponentState {
   login: boolean;
@@ -73,6 +74,15 @@ const AuthComponent = () => {
           {state.login && <Login />}
           {state.signup && <SignUp />}
         </div>
+      </div>
+      <div className="img-form-wrapper">
+        <a
+          href={LOGIN_SCREEN_IMAGE_CREDITS_LINK}
+          className="text-gray-500 hover:text-gray-700 transition-colors"
+        >
+          <span className="inline-block mr-1">Image credits :</span>
+          <span className="inline-block font-medium">Freepik</span>
+        </a>
       </div>
     </div>
   );
