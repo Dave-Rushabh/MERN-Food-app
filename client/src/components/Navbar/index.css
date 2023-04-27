@@ -1,0 +1,22 @@
+.navbar-wrapper {
+  @apply bg-app_primary_light h-20 p-2 flex items-center;
+}
+
+.nav-logo {
+  width: 15%;
+  height: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  @apply px-2;
+  border-right: 2px solid white;
+}
+
+.nav-logo > img {
+  height: 100%;
+}
+
+.logo-title {
+  width: 70%;
+  @apply text-xl px-2 text-white font-semibold;
+}
