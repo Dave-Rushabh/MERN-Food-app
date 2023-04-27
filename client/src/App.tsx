@@ -1,5 +1,5 @@
 import './App.css';
-import SignUp from './components/AuthComponent';
+import AuthComponent from './components/AuthComponent';
 import { Routes, Route } from 'react-router-dom';
 import Homepage from './components/Homepage';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -13,7 +13,7 @@ function App() {
           path="/auth"
           element={
             <AuthRoute>
-              <SignUp />
+              <AuthComponent />
             </AuthRoute>
           }
         />
@@ -29,7 +29,7 @@ function App() {
           path="*"
           element={
             <AuthRoute>
-              <Homepage />
+              <AuthComponent />
             </AuthRoute>
           }
         />
