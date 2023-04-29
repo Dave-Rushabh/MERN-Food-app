@@ -47,3 +47,27 @@ export const handleLoginUtils = async (values: any) => {
     throw new Error(error?.response?.data?.message ?? error?.message);
   }
 };
+
+export const isTokenValid = async () => {
+  const token = getToken();
+
+  if (!token) {
+    return false;
+  }
+
+  try {
+    const {
+      data: { validated },
+    } = await axios({
+      method: 'POST',
+      url: `${API_ENDPOINT}/api/validate-token`,
+      data: { token },
+    });
+
+    if (validated) {
+      return true;
+    }
+  } catch (error: any) {
+    return false;
+  }
+};

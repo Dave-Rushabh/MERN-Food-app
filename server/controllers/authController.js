@@ -91,4 +91,22 @@ const handleLogin = expressAsyncHandler(async (req, res) => {
   }
 });
 
-module.exports = { handleSignUp, handleLogin };
+const validateToken = expressAsyncHandler(async (req, res) => {
+  const { token } = req.body;
+
+  if (!token) {
+    return res.status(401).json({ message: "Unable To Authenticate !" });
+  }
+
+  try {
+    const isValidToken = jwt.verify(token, process.env.JWT_SECRET);
+    if (isValidToken) {
+      res.json({ validated: true });
+    }
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ message: "Unable to Authenticate !" });
+  }
+});
+
+module.exports = { handleSignUp, handleLogin, validateToken };
