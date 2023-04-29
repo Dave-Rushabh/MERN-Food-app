@@ -3,8 +3,19 @@ import {
   DrawerBody,
   DrawerOverlay,
   DrawerContent,
+  Accordion,
 } from '@chakra-ui/react';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
+import './index.css';
+import MenuAccordion from './menu-accordion';
+import {
+  DINING_OPTIONS,
+  EVENT_OPTIONS,
+  FOOD_ORDER_OPTIONS,
+  MONEY_OPTIONS,
+  MORE_OPTIONS,
+  RESTAURANT_AWARD_OPTIONS,
+} from '../../../../constants/NAVBAR/navbar_drawer_options';
 
 interface NavbarDrawerProps {
   isOpen: boolean;
@@ -32,7 +43,26 @@ const NavbarDrawer = ({ isOpen, onClose, btnRef }: NavbarDrawerProps) => {
               <MdOutlineKeyboardBackspace size={'1.8rem'} color={'#1d3557'} />
             </div>
           </div>
-          <DrawerBody></DrawerBody>
+          <DrawerBody>
+            <div className="drawer-body-container">
+              <div className="accordion-container">
+                <Accordion allowToggle>
+                  <MenuAccordion
+                    title="Food Orders"
+                    menu={FOOD_ORDER_OPTIONS}
+                  />
+                  <MenuAccordion
+                    title="Restaurant Awards 2023"
+                    menu={RESTAURANT_AWARD_OPTIONS}
+                  />
+                  <MenuAccordion title="Dining" menu={DINING_OPTIONS} />
+                  <MenuAccordion title="Events" menu={EVENT_OPTIONS} />
+                  <MenuAccordion title="Money" menu={MONEY_OPTIONS} />
+                  <MenuAccordion title="More" menu={MORE_OPTIONS} />
+                </Accordion>
+              </div>
+            </div>
+          </DrawerBody>
         </DrawerContent>
       </Drawer>
     </>

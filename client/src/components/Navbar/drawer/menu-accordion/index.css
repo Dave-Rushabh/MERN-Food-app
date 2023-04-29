@@ -1,0 +1,7 @@
+.menu-item-accordion {
+  @apply my-2 hover:bg-slate-200 hover:text-app_primary_dark py-1 px-2 hover:cursor-pointer;
+}
+
+.chakra-accordion__panel {
+  padding-inline-start: unset !important;
+}
