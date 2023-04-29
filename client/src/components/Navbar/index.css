@@ -1,5 +1,5 @@
 .navbar-wrapper {
-  @apply bg-app_primary_light h-20 p-2 flex items-center;
+  @apply bg-app_primary_light h-20 p-2 flex items-center justify-between;
 }
 
 .nav-logo {
@@ -8,8 +8,7 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  @apply px-2;
-  border-right: 2px solid white;
+  @apply px-2 border-r-4 border-app_primary_yellow;
 }
 
 .nav-logo > img {
@@ -18,5 +17,38 @@
 
 .logo-title {
   width: 70%;
-  @apply text-xl px-2 text-white font-semibold;
+  @apply text-xl px-2 text-white font-semibold relative pb-2;
+}
+
+.logo-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 1px;
+  width: 0;
+  background-color: white;
+  transition: width 0.5s ease-out;
+}
+
+.logo-title:hover::before {
+  width: 90%;
+}
+
+.hamburger-menu-options {
+  height: 90%;
+  @apply px-2 border-l-4 border-app_primary_yellow flex items-center;
+}
+
+.hamburger-logo {
+  font-size: 1.5rem;
+  color: white;
+}
+
+.hamburger-logo:hover {
+  cursor: pointer;
+}
+.main-tabs {
+  width: 80%;
+  background-color: turquoise;
 }
