@@ -1,9 +1,6 @@
 import { API_ENDPOINT } from './../constants/API_ENDPOINTS/api_endpoints';
 import axios from 'axios';
 
-export const isTokenAvailable = () =>
-  sessionStorage.getItem('token') ? true : false;
-
 export const setToken = (token: string) => {
   sessionStorage.setItem('token', token);
 };
@@ -13,6 +10,11 @@ export const setUser = (user: any) => {
 };
 
 export const getToken = () => sessionStorage.getItem('token');
+
+export const handleLogout = () => {
+  sessionStorage.removeItem('token');
+  sessionStorage.removeItem('user');
+};
 
 export const handleSignUpUtils = async (values: any) => {
   try {

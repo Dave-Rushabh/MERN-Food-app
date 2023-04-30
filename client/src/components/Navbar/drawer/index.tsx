@@ -4,6 +4,8 @@ import {
   DrawerOverlay,
   DrawerContent,
   Accordion,
+  DrawerFooter,
+  Button,
 } from '@chakra-ui/react';
 import { MdOutlineKeyboardBackspace } from 'react-icons/md';
 import './index.css';
@@ -16,7 +18,7 @@ import {
   MORE_OPTIONS,
   RESTAURANT_AWARD_OPTIONS,
 } from '../../../../constants/NAVBAR/navbar_drawer_options';
-
+import { handleLogout } from '../../../../utils/authUtils';
 interface NavbarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -63,6 +65,21 @@ const NavbarDrawer = ({ isOpen, onClose, btnRef }: NavbarDrawerProps) => {
               </div>
             </div>
           </DrawerBody>
+          <DrawerFooter>
+            <Button
+              onClick={() => {
+                onClose();
+                handleLogout();
+                window.location.reload();
+              }}
+              variant="outline"
+              bg="#33658a"
+              _hover={{ bg: '#2f4858' }}
+              color="white"
+            >
+              Logout
+            </Button>
+          </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>

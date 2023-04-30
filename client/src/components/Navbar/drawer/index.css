@@ -3,3 +3,7 @@
   flex-direction: column;
   gap: 1rem;
 }
+
+.chakra-modal__footer {
+  @apply flex justify-start !important;
+}
