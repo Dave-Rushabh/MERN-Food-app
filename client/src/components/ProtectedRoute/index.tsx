@@ -1,4 +1,4 @@
-import { Navigate } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { isTokenValid } from '../../../utils/authUtils';
 import Layout from '../Layout';
 import { useEffect, useReducer } from 'react';
@@ -8,7 +8,7 @@ interface ProtectedRouteState {
   isAnythingToBeRendered: boolean;
 }
 
-const ProtectedRoute = ({ children }: any) => {
+const ProtectedRoute = () => {
   const handleTokenValidation = (state: ProtectedRouteState, action: any) => {
     switch (action?.type) {
       case 'SET_IS_AUTHENTICATED':
@@ -38,9 +38,11 @@ const ProtectedRoute = ({ children }: any) => {
   return !state.isAnythingToBeRendered ? (
     <></>
   ) : state.isAuthenticated ? (
-    <Layout>{children}</Layout>
+    <Layout>
+      <Outlet />
+    </Layout>
   ) : (
-    <Navigate to="/auth" replace />
+    <Navigate to="/auth" />
   );
 };
 
