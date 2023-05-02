@@ -19,6 +19,7 @@ import {
   RESTAURANT_AWARD_OPTIONS,
 } from '../../../../constants/NAVBAR/navbar_drawer_options';
 import { handleLogout } from '../../../../utils/authUtils';
+import UserProfile from './user-profile';
 interface NavbarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -46,6 +47,7 @@ const NavbarDrawer = ({ isOpen, onClose, btnRef }: NavbarDrawerProps) => {
             </div>
           </div>
           <DrawerBody>
+            <UserProfile />
             <div className="drawer-body-container">
               <div className="accordion-container">
                 <Accordion allowToggle>

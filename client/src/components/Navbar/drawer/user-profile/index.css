@@ -1,0 +1,27 @@
+.user-card {
+  @apply flex items-center pr-6 pl-4 rounded-md mb-8 shadow-md gap-3 flex-1 shadow-app_primary_light/100 w-full h-28;
+}
+.avatar {
+  @apply flex justify-center h-[90];
+  flex: 0.2;
+}
+
+.user-info {
+  @apply flex flex-col gap-2;
+  flex: 0.8;
+  max-width: 75%;
+}
+
+.user-name {
+  @apply text-app_primary_dark font-bold text-lg max-w-full;
+}
+
+.user-name-container-span {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  display: inline-block;
+  max-width: 90%;
+
+  @apply hover:cursor-pointer;
+}
