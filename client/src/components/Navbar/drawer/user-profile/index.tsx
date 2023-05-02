@@ -2,10 +2,16 @@ import { Button } from '@chakra-ui/react';
 import './index.css';
 import { FaUserCircle } from 'react-icons/fa';
 import { Tooltip } from '@chakra-ui/react';
+import { GET_USER_INFO } from '../../../../../redux/slice/navbarSlice';
+import { useDispatch } from 'react-redux';
 
 const UserProfile = () => {
   const user = sessionStorage.getItem('user');
   const label = user ? JSON.parse(user).username : '';
+  const userId = user ? JSON.parse(user).id : '';
+
+  const dispatch = useDispatch();
+
   return (
     <>
       <div className="user-card ">
@@ -28,7 +34,9 @@ const UserProfile = () => {
             </Tooltip>
           </div>
           <Button
-            onClick={() => {}}
+            onClick={() => {
+              dispatch(GET_USER_INFO(userId));
+            }}
             variant="outline"
             bg="#33658a"
             _hover={{ bg: '#2f4858' }}
