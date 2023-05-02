@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Spinner } from '@chakra-ui/react';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
 import { HANDLE_LOGIN } from '../../../redux/slice/authSlice';
+import DOMPurify from 'dompurify';
 
 const schema = Yup.object().shape({
   email: Yup.string().email('Invalid email').required('Email is required'),
@@ -57,7 +58,11 @@ const Login = () => {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={async (values, { resetForm }) => {
-            dispatch(HANDLE_LOGIN(values));
+            const sanitizedValues = {
+              email: DOMPurify.sanitize(values.email),
+              password: DOMPurify.sanitize(values.password),
+            };
+            dispatch(HANDLE_LOGIN(sanitizedValues));
             resetForm();
           }}
         >

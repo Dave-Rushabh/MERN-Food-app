@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { HANDLE_SIGN_UP } from '../../../redux/slice/authSlice';
 import { Spinner } from '@chakra-ui/react';
 import { AiFillEyeInvisible, AiFillEye } from 'react-icons/ai';
+import DOMPurify from 'dompurify';
 
 const schema = Yup.object().shape({
   username: Yup.string()
@@ -71,7 +72,15 @@ const SignUp = () => {
           initialValues={initialValues}
           validationSchema={schema}
           onSubmit={async (values, { resetForm }) => {
-            dispatch(HANDLE_SIGN_UP(values));
+            const sanitizedValues = {
+              username: DOMPurify.sanitize(values.username),
+              dateOfBirth: DOMPurify.sanitize(values.dateOfBirth),
+              email: DOMPurify.sanitize(values.email),
+              countryCode: values.countryCode,
+              contactNo: DOMPurify.sanitize(values.contactNo),
+              password: DOMPurify.sanitize(values.password),
+            };
+            dispatch(HANDLE_SIGN_UP(sanitizedValues));
             resetForm();
           }}
         >
