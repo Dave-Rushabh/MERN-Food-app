@@ -114,7 +114,7 @@ const AuthComponent = () => {
           <div className="img-form-wrapper">
             <a
               href={LOGIN_SCREEN_IMAGE_CREDITS_LINK}
-              className="text-gray-500 hover:text-gray-700 transition-colors"
+              className="text-gray-500 hover:text-gray-700 transition-colors hidden md:block"
             >
               <span className="inline-block mr-1">Image credits :</span>
               <span className="inline-block font-medium">Freepik</span>

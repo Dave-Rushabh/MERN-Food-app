@@ -3,6 +3,9 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        greatVibes: ['Great Vibes', 'cursive'],
+      },
       colors: {
         app_primary_dark: '#2f4858',
         app_primary_light: '#33658a',
