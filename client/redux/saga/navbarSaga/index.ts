@@ -3,7 +3,7 @@ import {
   GET_USER_INFO_FAIL,
   GET_USER_INFO_SUCCESS,
 } from '../../slice/navbarSlice';
-import { getUserInfoByUserId } from '../../../utils/navbarUtils';
+import { getUserInfoByUserIdUtils } from '../../../utils/navbarUtils';
 
 interface getUserInfoSagaAction {
   type: string;
@@ -15,7 +15,7 @@ interface getUserInfoSagaAction {
 function* getUserInfoSaga(action: getUserInfoSagaAction) {
   try {
     const { payload } = action;
-    const { data } = yield call(getUserInfoByUserId, payload);
+    const { data } = yield call(getUserInfoByUserIdUtils, payload);
     yield put(GET_USER_INFO_SUCCESS({ data }));
   } catch (error) {
     yield put(GET_USER_INFO_FAIL(error));
