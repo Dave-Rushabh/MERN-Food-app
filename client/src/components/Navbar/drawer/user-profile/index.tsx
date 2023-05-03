@@ -2,7 +2,10 @@ import { Button } from '@chakra-ui/react';
 import './index.css';
 import { FaUserCircle } from 'react-icons/fa';
 import { Tooltip } from '@chakra-ui/react';
-import { GET_USER_INFO } from '../../../../../redux/slice/navbarSlice';
+import {
+  GET_USER_INFO,
+  TOGGLE_USER_INFO_MODAL_VISIBILITY,
+} from '../../../../../redux/slice/navbarSlice';
 import { useDispatch } from 'react-redux';
 
 const UserProfile = () => {
@@ -36,6 +39,7 @@ const UserProfile = () => {
           <Button
             onClick={() => {
               dispatch(GET_USER_INFO(userId));
+              dispatch(TOGGLE_USER_INFO_MODAL_VISIBILITY());
             }}
             variant="outline"
             bg="#33658a"

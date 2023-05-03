@@ -20,6 +20,9 @@ import {
 } from '../../../../constants/NAVBAR/navbar_drawer_options';
 import { handleLogout } from '../../../../utils/authUtils';
 import UserProfile from './user-profile';
+import UserInfoModal from './user-info-modal';
+import { useSelector, useDispatch } from 'react-redux';
+import { TOGGLE_USER_INFO_MODAL_VISIBILITY } from '../../../../redux/slice/navbarSlice';
 interface NavbarDrawerProps {
   isOpen: boolean;
   onClose: () => void;
@@ -27,6 +30,12 @@ interface NavbarDrawerProps {
 }
 
 const NavbarDrawer = ({ isOpen, onClose, btnRef }: NavbarDrawerProps) => {
+  const {
+    data: userData,
+    modal: { visibility: userInfoModalVisibility },
+  } = useSelector((state: any) => state.navbarReducer.userInfo);
+  const dispatch = useDispatch();
+
   return (
     <>
       <Drawer
@@ -83,6 +92,13 @@ const NavbarDrawer = ({ isOpen, onClose, btnRef }: NavbarDrawerProps) => {
             </Button>
           </DrawerFooter>
         </DrawerContent>
+        <UserInfoModal
+          isOpen={userInfoModalVisibility}
+          onClose={() => {
+            dispatch(TOGGLE_USER_INFO_MODAL_VISIBILITY());
+          }}
+          userData={userData}
+        />
       </Drawer>
     </>
   );

@@ -4,6 +4,9 @@ const initialState = {
   userInfo: {
     data: null,
     isFetchingUserInfo: false,
+    modal: {
+      visibility: false,
+    },
   },
 };
 
@@ -23,9 +26,18 @@ const navbarSlice = createSlice({
     GET_USER_INFO_FAIL: (state, _action) => {
       state.userInfo.isFetchingUserInfo = false;
     },
+
+    //
+    TOGGLE_USER_INFO_MODAL_VISIBILITY: state => {
+      state.userInfo.modal.visibility = !state.userInfo.modal.visibility;
+    },
   },
 });
 
 export default navbarSlice.reducer;
-export const { GET_USER_INFO, GET_USER_INFO_SUCCESS, GET_USER_INFO_FAIL } =
-  navbarSlice.actions;
+export const {
+  GET_USER_INFO,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAIL,
+  TOGGLE_USER_INFO_MODAL_VISIBILITY,
+} = navbarSlice.actions;

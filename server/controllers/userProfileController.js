@@ -11,7 +11,12 @@ const getUserProfile = expressAsyncHandler(async (req, res) => {
   }
 
   try {
-    const userProfile = await User.findById(id, { password: 0 });
+    const userProfile = await User.findById(id, {
+      password: 0,
+      updatedAt: 0,
+      createdAt: 0,
+      __v: 0,
+    });
     if (!userProfile) {
       return res.status(404).json({
         message: "User details not found !",
