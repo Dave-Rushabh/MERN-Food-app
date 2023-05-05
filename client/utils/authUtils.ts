@@ -73,3 +73,8 @@ export const isTokenValid = async () => {
     return false;
   }
 };
+
+export const getUserId = () => {
+  const user = sessionStorage.getItem('user');
+  return user ? JSON.parse(user)?.id : null;
+};

@@ -5,11 +5,18 @@ import {
   ModalContent,
   ModalHeader,
   Spinner,
+  useToast,
 } from '@chakra-ui/react';
 import { useFormik } from 'formik';
 import { useReducer } from 'react';
 import * as Yup from 'yup';
-
+import {
+  TOGGLE_IS_UPDATED,
+  UPDATE_USER_INFO,
+} from '../../../../../redux/slice/navbarSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUserId } from '../../../../../utils/authUtils';
+import { useMemo, useEffect } from 'react';
 interface UserInfoModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -17,10 +24,6 @@ interface UserInfoModalProps {
 }
 
 interface RenderUserInfoProps {
-  userData: any;
-}
-
-interface EditUserInfoProps {
   userData: any;
 }
 
@@ -66,31 +69,69 @@ const RenderUserInfo = ({ userData }: RenderUserInfoProps) => {
   );
 };
 
-const EditUserInfo = ({ userData }: EditUserInfoProps) => {
+const EditUserInfo = ({ redirectToViewTab }: any) => {
+  const dispatch = useDispatch();
+  const toast = useToast();
+  const {
+    isUpdatingUserInfo,
+    isUpdated,
+    data: userData,
+    updateMessage: { success, failure },
+  } = useSelector((state: any) => state.navbarReducer.userInfo);
+
+  useEffect(() => {
+    if (!isUpdatingUserInfo && success?.length && isUpdated) {
+      toast({
+        title: success,
+        status: 'success',
+        duration: 6000,
+        isClosable: true,
+        position: 'top',
+      });
+      redirectToViewTab();
+    }
+    if (!isUpdatingUserInfo && failure?.length && isUpdated) {
+      toast({
+        title: failure,
+        status: 'error',
+        duration: 6000,
+        isClosable: true,
+        position: 'top',
+      });
+    }
+    return () => {
+      if (isUpdated) {
+        dispatch(TOGGLE_IS_UPDATED(false));
+      }
+    };
+  }, [isUpdatingUserInfo]);
+
   interface FormValues {
     username: string;
-    contactno: string;
+    contactNo: string;
     email: string;
-    dob: string;
+    dateOfBirth: string;
   }
 
-  const initialValues: FormValues = {
-    username: userData?.username,
-    contactno: userData?.contactNo,
-    email: userData?.email,
-    dob: new Date(userData?.dateOfBirth).toISOString().split('T')[0], // Convert date of birth to input date format
-  };
+  const initialValues = useMemo(() => {
+    return {
+      username: userData?.username,
+      contactNo: userData?.contactNo,
+      email: userData?.email,
+      dateOfBirth: new Date(userData?.dateOfBirth).toISOString().split('T')[0], // Convert date of birth to input date format
+    };
+  }, [userData]);
 
   const validationSchema = Yup.object({
     username: Yup.string().required('Username is required'),
-    contactno: Yup.string()
+    contactNo: Yup.string()
       .matches(/^\d{10}$/, 'Contact No must be a 10 digit number')
       .required('Contact No is required'),
     email: Yup.string()
       .email('Invalid email address')
       .matches(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/, 'Invalid email address')
       .required('Email is required'),
-    dob: Yup.date()
+    dateOfBirth: Yup.date()
       .max(new Date(), 'Date of Birth can not be in future')
       .required('Date of Birth is required'),
   });
@@ -110,7 +151,7 @@ const EditUserInfo = ({ userData }: EditUserInfoProps) => {
     validateOnBlur: true, // Validate the form when a field loses focus
     validateOnChange: true, // Validate the form when a field value changes
     onSubmit: values => {
-      // to do  : integrate API to update user info
+      dispatch(UPDATE_USER_INFO({ userId: getUserId(), userData: values }));
     },
   });
 
@@ -155,15 +196,15 @@ const EditUserInfo = ({ userData }: EditUserInfoProps) => {
           </div>
           <input
             type="tel"
-            id="contactno"
-            name="contactno"
+            id="contactNo"
+            name="contactNo"
             className="h-8 border-2 border-app_primary_light w-full mb-2 rounded-sm focus:outline-none pl-2"
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.contactno}
+            value={values.contactNo}
           />
-          {touched.contactno && errors.contactno && (
-            <div className="text-red-500">{errors.contactno}</div>
+          {touched.contactNo && errors.contactNo && (
+            <div className="text-red-500">{errors.contactNo}</div>
           )}
 
           <div className="font-bold mb-2 text-app_primary_dark">
@@ -171,29 +212,29 @@ const EditUserInfo = ({ userData }: EditUserInfoProps) => {
           </div>
           <input
             type="date"
-            id="dob"
-            name="dob"
+            id="dateOfBirth"
+            name="dateOfBirth"
             className="h-8 border-2 border-app_primary_light w-full mb-2 rounded-sm focus:outline-none pl-2"
             onChange={handleChange}
             onBlur={handleBlur}
-            value={values.dob}
+            value={values.dateOfBirth}
           />
-          {touched.dob && errors.dob && (
-            <div className="text-red-500">{errors.dob}</div>
+          {touched.dateOfBirth && errors.dateOfBirth && (
+            <div className="text-red-500">{errors.dateOfBirth}</div>
           )}
 
           <br />
           <button
             type="submit"
             value="Submit"
-            className={`h-12 px-4 rounded-lg text-md font-semibold bg-app_primary_light text-white hover:bg-app_primary_dark mt-2 ${
+            className={`h-12 w-24 px-4 rounded-lg text-md font-semibold bg-app_primary_light text-white hover:bg-app_primary_dark mt-2 ${
               Object.keys(errors).length > 0 || !dirty
                 ? 'opacity-50 cursor-not-allowed'
                 : ''
             }`}
             disabled={Object.keys(errors).length > 0 || !dirty}
           >
-            Update
+            {isUpdatingUserInfo ? <Spinner size="md" /> : 'Update'}
           </button>
         </form>
       </div>
@@ -207,9 +248,9 @@ const ViewOrEditSelector = ({ selection, dispatch }: any) => {
       <div className="btn-wrapper">
         <button
           onClick={() => dispatch({ type: 'ACTIVATE_VIEW' })}
-          className={`h-8 w-20 mr-1 text-white ${
+          className={`h-8 w-20 mr-1 ${
             selection.view
-              ? 'bg-app_primary_light'
+              ? 'bg-app_primary_light text-white'
               : 'border-t-2 border-l-2 border-r-2 border-app_primary_light text-app_primary_light'
           }`}
         >
@@ -217,9 +258,9 @@ const ViewOrEditSelector = ({ selection, dispatch }: any) => {
         </button>
         <button
           onClick={() => dispatch({ type: 'ACTIVATE_EDIT' })}
-          className={`h-8 w-20 text-white ${
+          className={`h-8 w-20  ${
             selection.edit
-              ? 'bg-app_primary_light'
+              ? 'bg-app_primary_light text-white'
               : 'border-t-2 border-l-2 border-r-2 border-app_primary_light text-app_primary_light'
           }`}
         >
@@ -248,6 +289,10 @@ const UserInfoModal = ({ isOpen, onClose, userData }: UserInfoModalProps) => {
     edit: false,
   });
 
+  const redirectToViewTab = () => {
+    dispatch({ type: 'ACTIVATE_VIEW' });
+  };
+
   return (
     <>
       <Modal blockScrollOnMount isOpen={isOpen} onClose={onClose} size="xl">
@@ -259,7 +304,9 @@ const UserInfoModal = ({ isOpen, onClose, userData }: UserInfoModalProps) => {
           <ModalBody>
             <ViewOrEditSelector {...{ selection, dispatch }} />
             {selection.view && <RenderUserInfo {...{ userData }} />}
-            {selection.edit && <EditUserInfo {...{ userData }} />}
+            {selection.edit && (
+              <EditUserInfo redirectToViewTab={redirectToViewTab} />
+            )}
           </ModalBody>
         </ModalContent>
       </Modal>

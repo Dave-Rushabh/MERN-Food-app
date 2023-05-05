@@ -6,12 +6,19 @@ import {
   GET_USER_INFO,
   TOGGLE_USER_INFO_MODAL_VISIBILITY,
 } from '../../../../../redux/slice/navbarSlice';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 
 const UserProfile = () => {
-  const user = sessionStorage.getItem('user');
-  const label = user ? JSON.parse(user).username : '';
-  const userId = user ? JSON.parse(user).id : '';
+  const userInStore = useSelector(
+    (state: any) => state.navbarReducer.userInfo.data
+  );
+
+  const user = sessionStorage.getItem('user') || userInStore;
+
+  const label = sessionStorage.getItem('user')
+    ? JSON.parse(user).username
+    : userInStore.username;
+  const userId = userInStore ? userInStore._id : JSON.parse(user).id;
 
   const dispatch = useDispatch();
 
