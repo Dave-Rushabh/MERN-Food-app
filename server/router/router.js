@@ -4,7 +4,10 @@ const {
   handleLogin,
   validateToken,
 } = require("../controllers/authController");
-const { getUserProfile } = require("../controllers/userProfileController");
+const {
+  getUserProfile,
+  updateUserProfile,
+} = require("../controllers/userProfileController");
 const { authMiddlware } = require("../middleware/authMiddleware");
 
 // using express's Router for routing the requests
@@ -25,5 +28,7 @@ router.route("/validate-token").post(validateToken);
 
 // 4.1) ==== GET USER DETAILS ====
 router.route("/user/:id").get(authMiddlware, getUserProfile);
+// 4.2) ==== UPDATE USER DETAILS ====
+router.route("/user/:id").put(authMiddlware, updateUserProfile);
 
 module.exports = { router };
