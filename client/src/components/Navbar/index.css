@@ -1,5 +1,5 @@
 .navbar-wrapper {
-  @apply bg-app_primary_light h-20 p-2 flex items-center justify-between;
+  @apply z-[10000000] bg-app_primary_light h-20 p-2 flex items-center justify-between sticky top-0;
 }
 
 .nav-logo {

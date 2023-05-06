@@ -1,0 +1,45 @@
+.offers-banner {
+  background: linear-gradient(
+    -45deg,
+    #f6ae2d,
+    #cdb4db,
+    #ffc8dd,
+    #ffafcc,
+    #a2d2ff
+  );
+  animation: gradient 15s ease infinite;
+  background-size: 400% 400%;
+  width: 95vw;
+  margin: 2rem auto;
+  border-radius: 0.5rem;
+  padding: 1rem;
+}
+
+@keyframes gradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.offer-header {
+  @apply text-3xl text-app_primary_dark text-center font-bold my-4;
+}
+
+.offer-sub-header {
+  @apply text-xl text-center font-semibold text-app_primary_dark;
+}
+
+.coupons-container {
+  width: 95vw;
+  margin: 2rem auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  place-items: center;
+}
