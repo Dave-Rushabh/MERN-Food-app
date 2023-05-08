@@ -50,5 +50,7 @@
 }
 .main-tabs {
   width: 80%;
-  background-color: turquoise;
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
 }

@@ -1,0 +1,32 @@
+.menus-wrapper {
+  width: 65%;
+  display: flex;
+  gap: 1rem;
+  justify-content: flex-end;
+}
+
+.location-identifier {
+  width: 35%;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.location-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  @apply text-lg text-white;
+}
+
+.menu-item-container {
+  display: flex;
+  gap: 0.8rem;
+  align-items: center;
+  justify-content: center;
+  @apply text-white text-lg px-4 py-2 rounded-md border-2 border-white;
+}
+
+.active {
+  @apply bg-white border-2 border-white text-app_primary_dark font-semibold;
+}
