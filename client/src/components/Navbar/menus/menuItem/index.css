@@ -1,12 +1,12 @@
 .menus-wrapper {
-  width: 65%;
+  width: 80%;
   display: flex;
   gap: 1rem;
   justify-content: flex-end;
 }
 
 .location-identifier {
-  width: 35%;
+  width: 20%;
   display: flex;
   justify-content: flex-start;
   align-items: center;
@@ -29,4 +29,8 @@
 
 .active {
   @apply bg-white border-2 border-white text-app_primary_dark font-semibold;
+}
+
+.text {
+  font-size: 1rem;
 }

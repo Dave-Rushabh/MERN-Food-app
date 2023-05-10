@@ -3,6 +3,7 @@ import { BsInfoSquareFill } from 'react-icons/bs';
 import { TfiHeadphoneAlt } from 'react-icons/tfi';
 import { ImCart } from 'react-icons/im';
 import { BsPencilSquare } from 'react-icons/bs';
+import { MdLocalOffer } from 'react-icons/md';
 import { IconType } from 'react-icons/lib';
 
 interface NavbarOption {
@@ -39,6 +40,12 @@ export const NAVBAR_OPTIONS: NavbarOption[] = [
   },
   {
     id: 5,
+    option: 'Offers',
+    logo: MdLocalOffer,
+    route: '/offers',
+  },
+  {
+    id: 6,
     option: 'Cart',
     logo: ImCart,
     route: '/cart',

@@ -13,7 +13,7 @@ const MenuItems = () => {
           <div>
             <IoLocationSharp />
           </div>
-          <div className="text">Ahmedabad, Gujarat, India</div>
+          <div className="text">Bengaluru, Karnataka, India</div>
         </div>
       </div>
       <div className="menus-wrapper">
