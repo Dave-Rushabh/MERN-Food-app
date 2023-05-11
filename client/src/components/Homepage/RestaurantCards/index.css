@@ -1,0 +1,47 @@
+.res-card-info {
+  @apply border-2 border-app_primary_light rounded-md p-2;
+  min-height: 500px;
+  position: relative;
+}
+
+.res-card-info:hover {
+  scale: 1.05;
+  transition: scale 0.5s ease-out;
+  cursor: pointer;
+}
+
+.res-img {
+  @apply rounded-md;
+}
+
+.res-name {
+  @apply text-lg font-semibold text-app_primary_dark;
+}
+
+.veg-or-nonveg-with-cost-for-two-distance {
+  @apply flex justify-between items-center m-2;
+}
+
+.distance-indicator {
+  @apply flex gap-2 items-center justify-center;
+}
+
+.cost {
+  @apply font-bold;
+}
+
+.ratings-delivery-time {
+  @apply flex items-center justify-between h-8 m-2;
+}
+
+.offer-banner {
+  @apply bg-app_primary_light text-white h-8 rounded-md;
+}
+
+.checkout-btn {
+  margin-top: 1rem;
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+  @apply w-32 flex items-center h-9 justify-center gap-2 bg-app_primary_light text-white rounded-md hover:bg-app_primary_dark;
+}
