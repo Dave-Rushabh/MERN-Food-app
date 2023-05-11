@@ -20,7 +20,7 @@ const Homepage = () => {
       {isFetching ? (
         <div className="shimmer-wrapper">
           {Array.from({ length: 15 }).map((_, idx) => (
-            <RestaurantCardsShimmer idx={idx} />
+            <RestaurantCardsShimmer key={idx.toString()} />
           ))}
         </div>
       ) : (
