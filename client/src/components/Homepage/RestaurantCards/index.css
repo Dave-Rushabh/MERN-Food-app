@@ -15,7 +15,7 @@
 }
 
 .res-name {
-  @apply text-lg font-semibold text-app_primary_dark;
+  @apply text-lg font-semibold text-app_primary_dark m-3;
 }
 
 .veg-or-nonveg-with-cost-for-two-distance {

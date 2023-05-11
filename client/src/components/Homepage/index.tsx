@@ -1,9 +1,9 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { GET_RESTAURANTS } from '../../../redux/slice/homepageSlice';
-import { Spinner } from '@chakra-ui/react';
 import RestaurantCards from './RestaurantCards';
 import './index.css';
+import RestaurantCardsShimmer from './RestaurantCards/RestaurantCardsShimmer';
 
 const Homepage = () => {
   const dispatch = useDispatch();
@@ -18,15 +18,10 @@ const Homepage = () => {
   return (
     <>
       {isFetching ? (
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            height: '50vh',
-          }}
-        >
-          <Spinner color="#33658a" size="lg" />
+        <div className="shimmer-wrapper">
+          {Array.from({ length: 15 }).map((_, idx) => (
+            <RestaurantCardsShimmer idx={idx} />
+          ))}
         </div>
       ) : (
         <div className="res-card-wrapper">
