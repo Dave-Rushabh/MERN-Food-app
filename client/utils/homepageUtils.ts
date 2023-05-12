@@ -1,19 +1,14 @@
 import axios from 'axios';
 
-export const getRestaurantsUtilS = async () => {
+export const getRestaurantsUtilS = async (offset: number) => {
   const resp = await axios({
     method: 'GET',
-    url: 'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9715987&lng=77.5945627&page_type=DESKTOP_WEB_LISTING',
+    url: `https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&offset=${offset}&sortBy=RELEVANCE&pageType=SEE_ALL&page_type=DESKTOP_SEE_ALL_LISTING`,
   });
+
   const {
-    data: {
-      data: { cards },
-    },
+    data: { data },
   } = resp;
 
-  const {
-    data: { data: restauratsInfo },
-  } = cards.find((elem: any) => elem?.cardType === 'seeAllRestaurants');
-
-  return restauratsInfo;
+  return data;
 };

@@ -18,10 +18,10 @@ const homepageSlice = createSlice({
       state.restaurantsCards.isFetching = true;
     },
     GET_RESTAURANTS_SUCCESS: (state, action) => {
-      const { cards, totalOpenRestaurants } = action.payload;
+      const { cards, totalSize } = action.payload;
       state.restaurantsCards.isFetching = false;
       state.restaurantsCards.data = cards;
-      state.restaurantsCards.totalOpenRestaurants = totalOpenRestaurants;
+      state.restaurantsCards.totalOpenRestaurants = totalSize;
     },
     GET_RESTAURANTS_FAIL: state => {
       state.restaurantsCards.isFetching = false;

@@ -50,8 +50,8 @@ const RestaurantCards = () => {
   return (
     <>
       {restaurantsCardsInfo?.map((elem: any) => (
-        <div key={elem.data.uuid} className="res-card-info">
-          {elem.data?.aggregatedDiscountInfo?.header && (
+        <div key={elem.data.data.uuid} className="res-card-info">
+          {elem.data.data?.aggregatedDiscountInfo?.header && (
             <div className="ribbon ribbon-top-left">
               <span> {generateDiscountCoupon()}</span>
             </div>
@@ -59,31 +59,33 @@ const RestaurantCards = () => {
 
           <div className="res-img-wrapper">
             <img
-              src={`${CLOUDINATY_IMG_URL}/${elem.data.cloudinaryImageId}`}
+              src={`${CLOUDINATY_IMG_URL}/${elem.data.data.cloudinaryImageId}`}
               className="res-img"
             />
           </div>
-          <div className="res-name">{elem.data.name}</div>
-          <div className="m-1">{elem.data.cuisines.join(', ')}</div>
+          <div className="res-name">{elem.data.data.name}</div>
+          <div className="m-1">
+            {elem.data.data.cuisines.slice(0, 5)?.join(', ')}
+          </div>
 
           <hr />
 
           <div className="veg-or-nonveg-with-cost-for-two-distance">
-            {elem.data.veg ? (
+            {elem.data.data.veg ? (
               <VegOrNonVegIndicator color="green" />
             ) : (
               <VegOrNonVegIndicator color="red" />
             )}
             |
             <div className="cost">
-              &#8377; {elem.data.costForTwo / 100} for Two
+              &#8377; {elem.data.data.costForTwo / 100} for Two
             </div>
             |
             <div className="distance-indicator">
               <div>
                 <RiEBike2Fill style={{ color: '#006d77' }} />
               </div>
-              <div>{Math.ceil(elem.data.lastMileTravel)} km </div>
+              <div>{Math.ceil(elem.data.data.lastMileTravel)} km </div>
             </div>
           </div>
 
@@ -94,7 +96,8 @@ const RestaurantCards = () => {
               <div>
                 <HiStar style={{ fontSize: '1.5rem', color: '#588157' }} />
               </div>
-              {elem.data.avgRating},{formatRatingsValue(elem.data.totalRatings)}
+              {elem.data.data.avgRating},
+              {formatRatingsValue(elem.data.data.totalRatings)}
               &nbsp;ratings
             </div>
             |
@@ -102,7 +105,7 @@ const RestaurantCards = () => {
               <div>
                 <BiTimeFive style={{ fontSize: '1.3rem', color: '#2f4858' }} />
               </div>
-              {formatDeliveryTime(elem.data.deliveryTime)} ETA
+              {formatDeliveryTime(elem.data.data.deliveryTime)} ETA
             </div>
           </div>
 
