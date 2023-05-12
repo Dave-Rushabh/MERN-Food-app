@@ -5,6 +5,7 @@ import Homepage from './components/Homepage';
 import ProtectedRoute from './components/ProtectedRoute';
 import CouponsPage from './components/CouponsPage';
 import AboutPage from './components/AboutPage';
+import Cart from './components/Cart';
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
           <Route path="/" element={<Homepage />} />
           <Route path="/offers" element={<CouponsPage />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/cart" element={<Cart />} />
         </Route>
       </Routes>
     </>
