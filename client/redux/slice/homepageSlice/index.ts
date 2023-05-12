@@ -2,7 +2,7 @@ import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
   restaurantsCards: {
-    data: null,
+    data: [] as any,
     totalOpenRestaurants: null,
     isFetching: false,
     statusMsg: '',
@@ -14,13 +14,13 @@ const homepageSlice = createSlice({
   initialState: initialState,
   reducers: {
     // handle fetching the restaurant cards
-    GET_RESTAURANTS: state => {
+    GET_RESTAURANTS: (state, _action) => {
       state.restaurantsCards.isFetching = true;
     },
     GET_RESTAURANTS_SUCCESS: (state, action) => {
       const { cards, totalSize } = action.payload;
       state.restaurantsCards.isFetching = false;
-      state.restaurantsCards.data = cards;
+      state.restaurantsCards.data = [...state.restaurantsCards.data, ...cards];
       state.restaurantsCards.totalOpenRestaurants = totalSize;
     },
     GET_RESTAURANTS_FAIL: state => {

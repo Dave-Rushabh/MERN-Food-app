@@ -5,9 +5,9 @@ import {
 import { getRestaurantsUtilS } from './../../../utils/homepageUtils';
 import { call, put, takeLatest } from 'redux-saga/effects';
 
-function* getRestaurantsSaga(): Generator<any, void, any> {
+function* getRestaurantsSaga(action: any): Generator<any, void, any> {
   try {
-    const resp = yield call(getRestaurantsUtilS, 0);
+    const resp = yield call(getRestaurantsUtilS, action?.payload);
     yield put(GET_RESTAURANTS_SUCCESS(resp));
   } catch (error) {
     yield put(GET_RESTAURANTS_FAIL());
