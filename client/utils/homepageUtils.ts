@@ -1,5 +1,10 @@
 import axios from 'axios';
 
+// to be used when integrating filters API
+// const filters = encodeURIComponent(
+//   JSON.stringify({ CUISINES: ['Gujarati', 'Thai'] })
+// );
+
 export const getRestaurantsUtilS = async (offset: number, sortBy: string) => {
   const resp = await axios({
     method: 'GET',

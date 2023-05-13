@@ -22,7 +22,7 @@ const InfiniteScrollWrapper = () => {
         window.innerHeight + window.pageYOffset + 1 >=
         document.documentElement.scrollHeight
       ) {
-        if (!isFetching) {
+        if (!isFetching && currentOffset <= allRestaurants.length) {
           setCurrentOffset(prevOffset => prevOffset + offsetToBeAdded);
         }
       }
@@ -33,10 +33,12 @@ const InfiniteScrollWrapper = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isFetching]);
+  }, [isFetching, currentOffset]);
 
   useEffect(() => {
-    dispatch(GET_RESTAURANTS({ currentOffset, currentTab }));
+    if (currentOffset <= allRestaurants.length) {
+      dispatch(GET_RESTAURANTS({ currentOffset, currentTab }));
+    }
   }, [currentOffset, currentTab]);
 
   return (
