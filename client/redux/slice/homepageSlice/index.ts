@@ -1,3 +1,4 @@
+import { HOME_PAGE_TAB_SELECTORS } from './../../../constants/HOMEPAGE/index';
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
@@ -6,6 +7,9 @@ const initialState = {
     totalOpenRestaurants: null,
     isFetching: false,
     statusMsg: '',
+  },
+  tabSelection: {
+    currentTab: HOME_PAGE_TAB_SELECTORS[0].name,
   },
 };
 
@@ -28,6 +32,11 @@ const homepageSlice = createSlice({
       state.restaurantsCards.statusMsg =
         'Oops ! Unable to fetch near by restaurants';
     },
+
+    // handle tab selection
+    CHANGE_TAB_SELECTION: (state, action) => {
+      state.tabSelection.currentTab = action.payload;
+    },
   },
 });
 
@@ -36,4 +45,5 @@ export const {
   GET_RESTAURANTS,
   GET_RESTAURANTS_SUCCESS,
   GET_RESTAURANTS_FAIL,
+  CHANGE_TAB_SELECTION,
 } = homepageSlice.actions;

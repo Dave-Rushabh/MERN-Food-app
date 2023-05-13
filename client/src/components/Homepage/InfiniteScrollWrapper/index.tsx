@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { GET_RESTAURANTS } from '../../../../redux/slice/homepageSlice';
 import RestaurantCardsShimmer from '../RestaurantCards/RestaurantCardsShimmer';
 import RestaurantCards from '../RestaurantCards';
+import './index.css';
 
 const InfiniteScrollWrapper = () => {
   const dispatch = useDispatch();

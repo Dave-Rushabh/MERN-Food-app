@@ -1,9 +1,11 @@
-.res-card-wrapper,
-.shimmer-wrapper {
-  width: 95vw;
-  margin: 2rem auto;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-  gap: 1.5rem;
-  place-items: center;
+.scroll-to-top-button {
+  @apply fixed bottom-4 right-0 hover:bg-app_primary_dark text-white px-4 py-2 rounded-full bg-app_primary_orange;
+}
+
+.scroll-to-top-button > .top-icon {
+  @apply text-app_primary_dark;
+}
+
+.scroll-to-top-button:hover > .top-icon {
+  @apply text-app_primary_orange;
 }

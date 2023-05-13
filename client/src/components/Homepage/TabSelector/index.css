@@ -1,0 +1,24 @@
+.tab-selectors-wrapper {
+  @apply flex h-20 items-center border-b-2 border-app_primary_orange gap-4;
+  width: 95vw;
+  margin: 1rem auto;
+}
+
+.total-avbl-res {
+  @apply text-xl font-bold text-app_primary_dark;
+  width: 20%;
+}
+
+.tab-selection {
+  @apply flex gap-4 justify-end;
+  width: 60%;
+}
+
+.tab {
+  @apply text-lg text-app_primary_light;
+}
+
+.active-tab {
+  text-decoration: underline;
+  padding-bottom: 4px;
+}
