@@ -23,7 +23,7 @@
 }
 
 .filters-section {
-  @apply flex justify-end;
+  @apply flex justify-end items-center gap-4;
   width: 20%;
 }
 

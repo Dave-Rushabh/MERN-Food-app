@@ -12,6 +12,7 @@ export default {
         app_secondary_light: '#86bbd8',
         app_primary_yellow: '#f6ae2d',
         app_primary_orange: '#f26419',
+        app_primary_green: '#52b788',
       },
       screens: {
         sm: '640px',

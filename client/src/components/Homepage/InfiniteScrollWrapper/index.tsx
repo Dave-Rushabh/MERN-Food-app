@@ -1,18 +1,24 @@
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { GET_RESTAURANTS } from '../../../../redux/slice/homepageSlice';
+import {
+  GET_RESTAURANTS,
+  UPDATE_OFFSET,
+} from '../../../../redux/slice/homepageSlice';
 import RestaurantCardsShimmer from '../RestaurantCards/RestaurantCardsShimmer';
 import RestaurantCards from '../RestaurantCards';
 import './index.css';
 
 const InfiniteScrollWrapper = () => {
   const dispatch = useDispatch();
-  const [currentOffset, setCurrentOffset] = useState(0);
+  // const [currentOffset, setCurrentOffset] = useState(0);
   const offsetToBeAdded = 16;
-  const { isFetching, data: allRestaurants } = useSelector(
-    (state: any) => state.homepageReducer.restaurantsCards
-  );
-  const { currentTab } = useSelector(
+  const {
+    isFetching,
+    totalOpenRestaurants,
+    data: allRestaurants,
+    offset: currentOffset,
+  } = useSelector((state: any) => state.homepageReducer.restaurantsCards);
+  const { currentTab, isFetchOnlyVeg } = useSelector(
     (state: any) => state.homepageReducer.tabSelection
   );
 
@@ -22,8 +28,8 @@ const InfiniteScrollWrapper = () => {
         window.innerHeight + window.pageYOffset + 1 >=
         document.documentElement.scrollHeight
       ) {
-        if (!isFetching && currentOffset <= allRestaurants.length) {
-          setCurrentOffset(prevOffset => prevOffset + offsetToBeAdded);
+        if (!isFetching && currentOffset < totalOpenRestaurants) {
+          dispatch(UPDATE_OFFSET(offsetToBeAdded));
         }
       }
     };
@@ -33,13 +39,21 @@ const InfiniteScrollWrapper = () => {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [isFetching, currentOffset]);
+  }, [isFetching, currentOffset, isFetchOnlyVeg]);
 
   useEffect(() => {
-    if (currentOffset <= allRestaurants.length) {
-      dispatch(GET_RESTAURANTS({ currentOffset, currentTab }));
+    if (isFetchOnlyVeg) {
+      if (currentOffset < totalOpenRestaurants) {
+        dispatch(
+          GET_RESTAURANTS({ currentOffset, currentTab, isFetchOnlyVeg: true })
+        );
+      }
+    } else {
+      if (currentOffset <= totalOpenRestaurants) {
+        dispatch(GET_RESTAURANTS({ currentOffset, currentTab }));
+      }
     }
-  }, [currentOffset, currentTab]);
+  }, [currentOffset, currentTab, isFetchOnlyVeg]);
 
   return (
     <>

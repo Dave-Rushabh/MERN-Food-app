@@ -4,6 +4,7 @@ import './index.css';
 import { HOME_PAGE_TAB_SELECTORS } from '../../../../constants/HOMEPAGE';
 import { CHANGE_TAB_SELECTION } from '../../../../redux/slice/homepageSlice';
 import { VscListFilter } from 'react-icons/vsc';
+import VegSwitch from './VegSwitch';
 
 const TabSelector = () => {
   const { isFetching, totalOpenRestaurants } = useSelector(
@@ -41,6 +42,7 @@ const TabSelector = () => {
           ))}
         </div>
         <div className="filters-section">
+          <VegSwitch />
           <button className="filters-btn">
             Filters
             <VscListFilter style={{ fontSize: '1.2rem' }} />

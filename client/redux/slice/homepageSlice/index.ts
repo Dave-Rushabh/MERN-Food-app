@@ -7,9 +7,11 @@ const initialState = {
     totalOpenRestaurants: null,
     isFetching: false,
     statusMsg: '',
+    offset: 0,
   },
   tabSelection: {
     currentTab: HOME_PAGE_TAB_SELECTORS[0].sortBy,
+    isFetchOnlyVeg: false,
   },
 };
 
@@ -37,6 +39,21 @@ const homepageSlice = createSlice({
     CHANGE_TAB_SELECTION: (state, action) => {
       state.tabSelection.currentTab = action.payload;
       state.restaurantsCards.data = [];
+      state.restaurantsCards.offset = 0;
+    },
+
+    // handle veg switch actions
+    FETCH_ONLY_VEG_RESTAURANTS_TOGGLE: state => {
+      state.tabSelection.isFetchOnlyVeg = !state.tabSelection.isFetchOnlyVeg;
+      state.restaurantsCards.data = [];
+      state.restaurantsCards.offset = 0;
+      state.tabSelection.currentTab = HOME_PAGE_TAB_SELECTORS[0].sortBy;
+    },
+
+    //handle offset addition
+    UPDATE_OFFSET: (state, action) => {
+      state.restaurantsCards.offset =
+        state.restaurantsCards.offset + action.payload;
     },
   },
 });
@@ -47,4 +64,6 @@ export const {
   GET_RESTAURANTS_SUCCESS,
   GET_RESTAURANTS_FAIL,
   CHANGE_TAB_SELECTION,
+  FETCH_ONLY_VEG_RESTAURANTS_TOGGLE,
+  UPDATE_OFFSET,
 } = homepageSlice.actions;
