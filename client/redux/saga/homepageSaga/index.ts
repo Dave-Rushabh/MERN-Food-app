@@ -7,7 +7,8 @@ import { call, put, takeLatest } from 'redux-saga/effects';
 
 function* getRestaurantsSaga(action: any): Generator<any, void, any> {
   try {
-    const resp = yield call(getRestaurantsUtilS, action?.payload);
+    const { currentOffset, currentTab } = action.payload;
+    const resp = yield call(getRestaurantsUtilS, currentOffset, currentTab);
     yield put(GET_RESTAURANTS_SUCCESS(resp));
   } catch (error) {
     yield put(GET_RESTAURANTS_FAIL());

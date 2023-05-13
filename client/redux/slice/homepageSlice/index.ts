@@ -9,7 +9,7 @@ const initialState = {
     statusMsg: '',
   },
   tabSelection: {
-    currentTab: HOME_PAGE_TAB_SELECTORS[0].name,
+    currentTab: HOME_PAGE_TAB_SELECTORS[0].sortBy,
   },
 };
 
@@ -36,6 +36,7 @@ const homepageSlice = createSlice({
     // handle tab selection
     CHANGE_TAB_SELECTION: (state, action) => {
       state.tabSelection.currentTab = action.payload;
+      state.restaurantsCards.data = [];
     },
   },
 });

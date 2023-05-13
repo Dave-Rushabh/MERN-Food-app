@@ -1,5 +1,5 @@
 .tab-selectors-wrapper {
-  @apply flex h-20 items-center border-b-2 border-app_primary_orange gap-4;
+  @apply flex h-20 items-center border-b-2 border-app_primary_light gap-4;
   width: 95vw;
   margin: 1rem auto;
 }
@@ -15,10 +15,20 @@
 }
 
 .tab {
-  @apply text-lg text-app_primary_light;
+  @apply text-lg font-semibold text-app_primary_light hover:text-app_primary_dark py-2 hover:cursor-pointer;
 }
 
 .active-tab {
-  text-decoration: underline;
-  padding-bottom: 4px;
+  @apply border-b-2 border-app_primary_orange;
+}
+
+.filters-section {
+  @apply flex justify-end;
+  width: 20%;
+}
+
+.filters-btn {
+  @apply flex items-center justify-center gap-2 text-lg text-app_primary_light w-32;
+  @apply bg-white border-2 border-app_primary_light p-2 rounded-md;
+  @apply hover:bg-app_primary_light hover:text-white;
 }

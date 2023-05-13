@@ -12,6 +12,9 @@ const InfiniteScrollWrapper = () => {
   const { isFetching, data: allRestaurants } = useSelector(
     (state: any) => state.homepageReducer.restaurantsCards
   );
+  const { currentTab } = useSelector(
+    (state: any) => state.homepageReducer.tabSelection
+  );
 
   useEffect(() => {
     const handleScroll = () => {
@@ -33,8 +36,8 @@ const InfiniteScrollWrapper = () => {
   }, [isFetching]);
 
   useEffect(() => {
-    dispatch(GET_RESTAURANTS(currentOffset));
-  }, [currentOffset]);
+    dispatch(GET_RESTAURANTS({ currentOffset, currentTab }));
+  }, [currentOffset, currentTab]);
 
   return (
     <>
