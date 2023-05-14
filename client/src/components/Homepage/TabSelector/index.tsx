@@ -1,10 +1,12 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import './index.css';
 import { HOME_PAGE_TAB_SELECTORS } from '../../../../constants/HOMEPAGE';
 import { CHANGE_TAB_SELECTION } from '../../../../redux/slice/homepageSlice';
 import { VscListFilter } from 'react-icons/vsc';
 import VegSwitch from './VegSwitch';
+import { useDisclosure } from '@chakra-ui/react';
+import FiltersDrawer from './FiltersDrawer';
 
 const TabSelector = () => {
   const { isFetching, totalOpenRestaurants } = useSelector(
@@ -21,6 +23,9 @@ const TabSelector = () => {
       dispatch(CHANGE_TAB_SELECTION(HOME_PAGE_TAB_SELECTORS[0].sortBy));
     };
   }, []);
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const iconRef = useRef(null);
 
   return (
     <>
@@ -43,10 +48,17 @@ const TabSelector = () => {
         </div>
         <div className="filters-section">
           <VegSwitch />
-          <button className="filters-btn">
+          <button className="filters-btn" onClick={onOpen}>
             Filters
             <VscListFilter style={{ fontSize: '1.2rem' }} />
           </button>
+          {isOpen && (
+            <FiltersDrawer
+              isOpen={isOpen}
+              onClose={onClose}
+              iconRef={iconRef}
+            />
+          )}
         </div>
       </div>
     </>

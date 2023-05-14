@@ -10,7 +10,6 @@ import './index.css';
 
 const InfiniteScrollWrapper = () => {
   const dispatch = useDispatch();
-  // const [currentOffset, setCurrentOffset] = useState(0);
   const offsetToBeAdded = 16;
   const {
     isFetching,

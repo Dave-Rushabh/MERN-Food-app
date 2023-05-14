@@ -9,6 +9,11 @@ const initialState = {
     statusMsg: '',
     offset: 0,
   },
+  filtersList: {
+    isFetchingFilters: false,
+    data: [],
+    appliedFilters: [] as any,
+  },
   tabSelection: {
     currentTab: HOME_PAGE_TAB_SELECTORS[0].sortBy,
     isFetchOnlyVeg: false,
@@ -55,6 +60,32 @@ const homepageSlice = createSlice({
       state.restaurantsCards.offset =
         state.restaurantsCards.offset + action.payload;
     },
+
+    // handle filters fetching
+    GET_FILTERS_LIST: state => {
+      state.filtersList.isFetchingFilters = true;
+    },
+    GET_FILTERS_LIST_SUCCESS: (state, action) => {
+      state.filtersList.isFetchingFilters = false;
+      state.filtersList.data = action.payload;
+    },
+    GET_FILTERS_LIST_FAIL: state => {
+      state.filtersList.isFetchingFilters = false;
+    },
+
+    // handle apply filters from filtersList
+    ADD_CHECKED_FILTER_INTO_FILTERS_LIST: (state, action) => {
+      state.filtersList.appliedFilters = [
+        ...state.filtersList.appliedFilters,
+        action.payload,
+      ];
+    },
+    REMOVE_UNCHECKED_FILTER_INTO_FILTERS_LIST: (state, action) => {
+      state.filtersList.appliedFilters =
+        state.filtersList.appliedFilters.filter(
+          (elem: any) => elem !== action.payload
+        );
+    },
   },
 });
 
@@ -66,4 +97,9 @@ export const {
   CHANGE_TAB_SELECTION,
   FETCH_ONLY_VEG_RESTAURANTS_TOGGLE,
   UPDATE_OFFSET,
+  GET_FILTERS_LIST,
+  GET_FILTERS_LIST_SUCCESS,
+  GET_FILTERS_LIST_FAIL,
+  ADD_CHECKED_FILTER_INTO_FILTERS_LIST,
+  REMOVE_UNCHECKED_FILTER_INTO_FILTERS_LIST,
 } = homepageSlice.actions;

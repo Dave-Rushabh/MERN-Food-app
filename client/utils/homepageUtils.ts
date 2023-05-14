@@ -54,3 +54,26 @@ export const getRestaurantsUtilS = async (
     }
   }
 };
+
+export const getFiltersListUtils = async () => {
+  try {
+    const resp = await axios({
+      method: 'GET',
+      url: 'https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9351929&lng=77.62448069999999&sortBy=RELEVANCE&page_type=DESKTOP_WEB_LISTING',
+    });
+
+    const {
+      data: {
+        data: { filters },
+      },
+    } = resp;
+
+    const [{ options }] = filters.filter(
+      (elem: any) => elem?.key === 'CUISINES'
+    );
+
+    return options;
+  } catch (error: any) {
+    throw new Error(error);
+  }
+};
