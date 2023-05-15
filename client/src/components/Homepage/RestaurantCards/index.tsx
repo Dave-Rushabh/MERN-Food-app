@@ -51,9 +51,12 @@ const RestaurantCards = () => {
         <>
           {restaurantsCardsInfo?.map((elem: any) => (
             <div key={elem.data.data.uuid} className="res-card-info">
-              {elem.data.data?.aggregatedDiscountInfo?.header?.length < 12 && (
+              {elem.data.data?.aggregatedDiscountInfoV3?.header?.length <
+                12 && (
                 <div className="ribbon ribbon-top-left">
-                  <span> {elem.data.data?.aggregatedDiscountInfo?.header}</span>
+                  <span>
+                    {elem.data.data?.aggregatedDiscountInfoV3?.header}
+                  </span>
                 </div>
               )}
 
