@@ -6,6 +6,7 @@ import ProtectedRoute from './components/ProtectedRoute';
 import CouponsPage from './components/CouponsPage';
 import AboutPage from './components/AboutPage';
 import Cart from './components/Cart';
+import RestaurantDetails from './components/RestaurantDetails';
 
 function App() {
   return (
@@ -23,6 +24,10 @@ function App() {
           <Route path="/offers" element={<CouponsPage />} />
           <Route path="/about" element={<AboutPage />} />
           <Route path="/cart" element={<Cart />} />
+          <Route
+            path="/restaurant/:restaurantId"
+            element={<RestaurantDetails />}
+          />
         </Route>
       </Routes>
     </>

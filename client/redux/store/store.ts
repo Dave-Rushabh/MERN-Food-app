@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
 
@@ -6,25 +6,36 @@ import { all } from 'redux-saga/effects';
 import authSlice from '../slice/authSlice';
 import navbarSlice from '../slice/navbarSlice';
 import homepageSlice from '../slice/homepageSlice';
+import restaurantDetailsSlice from '../slice/restaurantDetailsSlice';
 
 // all the sagas
 import authSaga from '../saga/authSaga';
 import navbarSaga from '../saga/navbarSaga';
 import homepageSaga from '../saga/homepageSaga';
+import restaurantDetailsSaga from '../saga/restaurantDetailsSaga';
 
 const sagaMiddleware = createSagaMiddleware();
 
 // Root Saga
 function* rootSaga() {
-  yield all([authSaga(), navbarSaga(), homepageSaga()]);
+  yield all([
+    authSaga(),
+    navbarSaga(),
+    homepageSaga(),
+    restaurantDetailsSaga(),
+  ]);
 }
 
+// Root Reducer
+const rootReducer = combineReducers({
+  authReducer: authSlice,
+  navbarReducer: navbarSlice,
+  homepageReducer: homepageSlice,
+  restaurantDetailsReducer: restaurantDetailsSlice,
+});
+
 const store = configureStore({
-  reducer: {
-    authReducer: authSlice,
-    navbarReducer: navbarSlice,
-    homepageReducer: homepageSlice,
-  },
+  reducer: rootReducer,
   middleware: [sagaMiddleware],
 });
 

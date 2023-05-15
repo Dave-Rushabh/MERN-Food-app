@@ -6,6 +6,7 @@ import { RiEBike2Fill } from 'react-icons/ri';
 import { HiStar } from 'react-icons/hi';
 import { BiTimeFive } from 'react-icons/bi';
 import { GiKnifeFork } from 'react-icons/gi';
+import { Link } from 'react-router-dom';
 
 const RestaurantCards = () => {
   const { data: restaurantsCardsInfo } = useSelector(
@@ -116,12 +117,14 @@ const RestaurantCards = () => {
 
               <hr />
 
-              <button className="checkout-btn">
-                <span>
-                  <GiKnifeFork />
-                </span>
-                Explore
-              </button>
+              <Link to={`/restaurant/${elem.data.data.id}`}>
+                <button className="checkout-btn">
+                  <span>
+                    <GiKnifeFork />
+                  </span>
+                  Explore
+                </button>
+              </Link>
             </div>
           ))}
         </>
