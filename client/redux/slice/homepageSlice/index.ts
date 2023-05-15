@@ -13,6 +13,7 @@ const initialState = {
     isFetchingFilters: false,
     data: [],
     appliedFilters: [] as any,
+    filtersInAPIPayload: [],
   },
   tabSelection: {
     currentTab: HOME_PAGE_TAB_SELECTORS[0].sortBy,
@@ -73,7 +74,7 @@ const homepageSlice = createSlice({
       state.filtersList.isFetchingFilters = false;
     },
 
-    // handle apply filters from filtersList
+    // handle check / uncheck filters from filtersList
     ADD_CHECKED_FILTER_INTO_FILTERS_LIST: (state, action) => {
       state.filtersList.appliedFilters = [
         ...state.filtersList.appliedFilters,
@@ -85,6 +86,33 @@ const homepageSlice = createSlice({
         state.filtersList.appliedFilters.filter(
           (elem: any) => elem !== action.payload
         );
+    },
+
+    // handle apply button of filters
+    ADD_FILTERS_TO_API_PAYLOAD: state => {
+      state.filtersList.filtersInAPIPayload = state.filtersList.appliedFilters;
+      state.restaurantsCards.data = [];
+      state.restaurantsCards.offset = 0;
+      state.tabSelection.currentTab = HOME_PAGE_TAB_SELECTORS[0].sortBy;
+    },
+    // handle remove filters button
+    REMOVE_FILTERS_FROM_API_PAYLOAD: (state, action) => {
+      if (action.payload.length) {
+        state.filtersList.filtersInAPIPayload =
+          state.filtersList.filtersInAPIPayload.filter(
+            (elem: any) => elem !== action.payload
+          );
+        state.filtersList.appliedFilters =
+          state.filtersList.appliedFilters.filter(
+            (elem: any) => elem !== action.payload
+          );
+      } else {
+        state.filtersList.filtersInAPIPayload = [];
+        state.filtersList.appliedFilters = [];
+      }
+      state.restaurantsCards.offset = 0;
+      state.restaurantsCards.data = [];
+      state.tabSelection.currentTab = HOME_PAGE_TAB_SELECTORS[0].sortBy;
     },
   },
 });
@@ -102,4 +130,6 @@ export const {
   GET_FILTERS_LIST_FAIL,
   ADD_CHECKED_FILTER_INTO_FILTERS_LIST,
   REMOVE_UNCHECKED_FILTER_INTO_FILTERS_LIST,
+  ADD_FILTERS_TO_API_PAYLOAD,
+  REMOVE_FILTERS_FROM_API_PAYLOAD,
 } = homepageSlice.actions;

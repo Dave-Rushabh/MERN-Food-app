@@ -2,7 +2,6 @@ import {
   Drawer,
   DrawerBody,
   DrawerContent,
-  DrawerFooter,
   DrawerOverlay,
   Spinner,
 } from '@chakra-ui/react';
@@ -14,6 +13,7 @@ import {
   GET_FILTERS_LIST,
   ADD_CHECKED_FILTER_INTO_FILTERS_LIST,
   REMOVE_UNCHECKED_FILTER_INTO_FILTERS_LIST,
+  ADD_FILTERS_TO_API_PAYLOAD,
 } from '../../../../../redux/slice/homepageSlice';
 
 interface FiltersDrawer {
@@ -25,9 +25,11 @@ interface FiltersDrawer {
 const FiltersDrawer = ({ isOpen, onClose, iconRef }: FiltersDrawer) => {
   const dispatch = useDispatch();
 
-  const { data: filtersList, isFetchingFilters } = useSelector(
-    (state: any) => state.homepageReducer.filtersList
-  );
+  const {
+    data: filtersList,
+    isFetchingFilters,
+    appliedFilters,
+  } = useSelector((state: any) => state.homepageReducer.filtersList);
 
   useEffect(() => {
     if (!filtersList.length) {
@@ -64,7 +66,7 @@ const FiltersDrawer = ({ isOpen, onClose, iconRef }: FiltersDrawer) => {
               </div>
             ) : (
               <>
-                <div className="container mx-auto p-4">
+                <div className="container mx-auto">
                   <div className="flex gap-2 justify-between items-center mb-4">
                     <div className="text-xl font-semibold text-app_primary_light">
                       Food Options
@@ -72,7 +74,10 @@ const FiltersDrawer = ({ isOpen, onClose, iconRef }: FiltersDrawer) => {
                     <div>
                       <button
                         className="bg-white border-2 border-app_primary_light rounded-md p-2 text-app_primary_light hover:bg-app_primary_light hover:text-white"
-                        onClick={() => {}}
+                        onClick={() => {
+                          dispatch(ADD_FILTERS_TO_API_PAYLOAD());
+                          onClose();
+                        }}
                       >
                         Apply
                       </button>
@@ -80,13 +85,19 @@ const FiltersDrawer = ({ isOpen, onClose, iconRef }: FiltersDrawer) => {
                   </div>
 
                   <hr className="bg-app_primary_orange h-0.5" />
-                  <div className="grid grid-cols-2 gap-4 mt-4">
+                  <div
+                    className="grid grid-cols-2 gap-4 mt-4"
+                    style={{ maxHeight: '70vh', overflowY: 'scroll' }}
+                  >
                     {filtersList.map((option: any, index: number) => (
                       <div key={index.toString()} className="flex items-center">
                         <input
                           type="checkbox"
                           id={`option-${index}`}
-                          checked={option.checked}
+                          checked={
+                            option.checked ||
+                            appliedFilters.includes(option.option)
+                          }
                           onChange={(e: any) => {
                             if (e.target.checked) {
                               dispatch(
@@ -114,7 +125,6 @@ const FiltersDrawer = ({ isOpen, onClose, iconRef }: FiltersDrawer) => {
               </>
             )}
           </DrawerBody>
-          <DrawerFooter></DrawerFooter>
         </DrawerContent>
       </Drawer>
     </>
