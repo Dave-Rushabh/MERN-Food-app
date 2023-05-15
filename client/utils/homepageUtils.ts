@@ -1,10 +1,5 @@
 import axios from 'axios';
 
-// to be used when integrating filters API
-// const filters = encodeURIComponent(
-//   JSON.stringify({ CUISINES: ['Gujarati', 'Thai'] })
-// );
-
 interface getRestaurantsUtilSParams {
   offset: number;
   sortBy: string;
