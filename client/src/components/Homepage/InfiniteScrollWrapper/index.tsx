@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import {
   GET_RESTAURANTS,
@@ -8,6 +8,7 @@ import {
 import RestaurantCardsShimmer from '../RestaurantCards/RestaurantCardsShimmer';
 import RestaurantCards from '../RestaurantCards';
 import './index.css';
+import { BsSearch } from 'react-icons/bs';
 
 const renderFilters = (filters: string[]) => {
   const dispatch = useDispatch();
@@ -59,6 +60,7 @@ const renderFilters = (filters: string[]) => {
 };
 
 const InfiniteScrollWrapper = () => {
+  const searchBarRef = useRef<HTMLInputElement>(null);
   const dispatch = useDispatch();
   const offsetToBeAdded = 16;
   const {
@@ -75,6 +77,10 @@ const InfiniteScrollWrapper = () => {
     (state: any) => state.homepageReducer.filtersList
   );
 
+  const [searchValue, setSearchValue] = useState('');
+  const [cardsArray, setCardsArray] = useState([]);
+  const [showOnlySearchResults, setShowOnlySearchResults] = useState(false);
+
   useEffect(() => {
     const handleScroll = () => {
       if (
@@ -84,7 +90,8 @@ const InfiniteScrollWrapper = () => {
         if (
           !isFetching &&
           currentOffset < totalOpenRestaurants &&
-          totalOpenRestaurants - currentOffset > offsetToBeAdded
+          totalOpenRestaurants - currentOffset > offsetToBeAdded &&
+          !showOnlySearchResults
         ) {
           dispatch(UPDATE_OFFSET(offsetToBeAdded));
         }
@@ -102,6 +109,7 @@ const InfiniteScrollWrapper = () => {
     isFetchOnlyVeg,
     filtersInAPIPayload,
     totalOpenRestaurants,
+    showOnlySearchResults,
   ]);
 
   useEffect(() => {
@@ -115,8 +123,44 @@ const InfiniteScrollWrapper = () => {
     );
   }, [currentOffset, currentTab, isFetchOnlyVeg, filtersInAPIPayload]);
 
+  useEffect(() => {
+    searchBarRef.current?.focus();
+  }, []);
+
+  useEffect(() => {
+    if (searchValue.length) {
+      const searchResults = allRestaurants.filter((elem: any) =>
+        elem?.data?.data?.name
+          ?.toLowerCase()
+          ?.includes(searchValue?.toLowerCase())
+      );
+
+      setCardsArray(searchResults);
+      if (searchResults.length) {
+        setShowOnlySearchResults(true);
+      }
+    } else {
+      setShowOnlySearchResults(false);
+      setCardsArray([]);
+    }
+  }, [searchValue]);
+
   return (
     <>
+      <div className="res-search-wrapper">
+        <div>
+          <BsSearch />
+        </div>
+        <input
+          type="search"
+          ref={searchBarRef}
+          placeholder="Search Your Favorite Restaurants ...."
+          className="res-searchbar"
+          value={searchValue || ''}
+          onChange={e => setSearchValue(e.target.value)}
+        />
+      </div>
+
       {filtersInAPIPayload?.length ? renderFilters(filtersInAPIPayload) : null}
 
       {isFetching && allRestaurants.length < 16 ? (
@@ -128,7 +172,16 @@ const InfiniteScrollWrapper = () => {
       ) : (
         <>
           <div className="res-card-wrapper">
-            <RestaurantCards />
+            {searchValue.length && !cardsArray.length ? (
+              <div className="text-2xl text-app_primary_orange font-semibold">
+                oops ! No Restaurants Found ...
+              </div>
+            ) : (
+              <RestaurantCards
+                cardsArray={cardsArray}
+                showOnlySearchResults={showOnlySearchResults}
+              />
+            )}
             {isFetching && allRestaurants.length >= 16 && (
               <>
                 {Array.from({ length: 16 }).map((_, idx) => (

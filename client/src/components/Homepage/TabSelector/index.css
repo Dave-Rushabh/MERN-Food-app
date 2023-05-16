@@ -5,7 +5,7 @@
 }
 
 .total-avbl-res {
-  @apply text-xl font-bold text-app_primary_dark;
+  @apply text-xl font-bold text-app_primary_dark flex items-center gap-4;
   width: 20%;
 }
 

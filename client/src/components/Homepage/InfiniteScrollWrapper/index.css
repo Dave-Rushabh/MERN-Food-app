@@ -12,3 +12,14 @@
   width: 95vw;
   margin: 2rem auto;
 }
+
+.res-search-wrapper {
+  width: 45vw;
+  margin: 2rem auto;
+  @apply flex items-center gap-2 border-2 border-app_primary_dark rounded-md p-2;
+}
+
+.res-searchbar {
+  width: 100%;
+  @apply h-10 px-2 focus:outline-none bg-slate-50 border-l-2 border-app_primary_dark;
+}

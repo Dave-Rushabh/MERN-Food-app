@@ -5,7 +5,7 @@ import { HOME_PAGE_TAB_SELECTORS } from '../../../../constants/HOMEPAGE';
 import { CHANGE_TAB_SELECTION } from '../../../../redux/slice/homepageSlice';
 import { VscListFilter } from 'react-icons/vsc';
 import VegSwitch from './VegSwitch';
-import { useDisclosure } from '@chakra-ui/react';
+import { Spinner, useDisclosure } from '@chakra-ui/react';
 import FiltersDrawer from './FiltersDrawer';
 
 const TabSelector = () => {
@@ -31,9 +31,16 @@ const TabSelector = () => {
     <>
       <div className="tab-selectors-wrapper">
         <div className="total-avbl-res">
-          {isFetching || totalOpenRestaurants === null
-            ? 'Finding Restaurants ...'
-            : ` ${totalOpenRestaurants} Restaurants`}
+          {isFetching || totalOpenRestaurants === null ? (
+            <>
+              <div>
+                <Spinner />
+              </div>
+              <div>Finding Restaurants ...</div>
+            </>
+          ) : (
+            ` ${totalOpenRestaurants} Restaurants`
+          )}
         </div>
         <div className="tab-selection">
           {HOME_PAGE_TAB_SELECTORS.map((tab: any) => (
