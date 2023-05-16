@@ -7,6 +7,7 @@ import authSlice from '../slice/authSlice';
 import navbarSlice from '../slice/navbarSlice';
 import homepageSlice from '../slice/homepageSlice';
 import restaurantDetailsSlice from '../slice/restaurantDetailsSlice';
+import cartDetailsSlice from '../slice/cartSlice';
 
 // all the sagas
 import authSaga from '../saga/authSaga';
@@ -32,6 +33,7 @@ const rootReducer = combineReducers({
   navbarReducer: navbarSlice,
   homepageReducer: homepageSlice,
   restaurantDetailsReducer: restaurantDetailsSlice,
+  cartDetailsReducer: cartDetailsSlice,
 });
 
 const store = configureStore({

@@ -36,3 +36,22 @@
 .primary-info-footer {
   @apply flex gap-8 font-bold text-app_primary_dark;
 }
+
+.food-items-wrapper {
+  margin: 2rem auto;
+  display: grid;
+  /* grid-template-columns: repeat(2, 1fr); */
+  grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+  gap: 1rem;
+}
+
+.food-item-name-details-img-wrapper {
+  @apply flex items-center justify-between;
+  @apply border-2 p-4 shadow-md rounded-md;
+  /* min-height: 250px; */
+}
+
+.food-item-img-wrapper > img {
+  height: 150px;
+  width: 200px;
+}

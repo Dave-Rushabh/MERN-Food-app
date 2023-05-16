@@ -6,7 +6,7 @@ import { RiEBike2Fill } from 'react-icons/ri';
 import { HiStar } from 'react-icons/hi';
 import { BiTimeFive } from 'react-icons/bi';
 import { GiKnifeFork } from 'react-icons/gi';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const RestaurantCards = ({
   cardsArray,
@@ -15,6 +15,7 @@ const RestaurantCards = ({
   cardsArray: any[];
   showOnlySearchResults: boolean;
 }) => {
+  const navigate = useNavigate();
   const { data: restaurantsCardsInfo } = useSelector(
     (state: any) => state.homepageReducer.restaurantsCards
   );
@@ -126,14 +127,15 @@ const RestaurantCards = ({
 
                 <hr />
 
-                <Link to={`/restaurant/${elem.data.data.id}`}>
-                  <button className="checkout-btn">
-                    <span>
-                      <GiKnifeFork />
-                    </span>
-                    Explore
-                  </button>
-                </Link>
+                <button
+                  className="checkout-btn"
+                  onClick={() => navigate(`/restaurant/${elem.data.data.id}`)}
+                >
+                  <span>
+                    <GiKnifeFork />
+                  </span>
+                  Explore
+                </button>
               </Link>
             </div>
           ))}
@@ -214,14 +216,17 @@ const RestaurantCards = ({
 
                     <hr />
 
-                    <Link to={`/restaurant/${elem.data.data.id}`}>
-                      <button className="checkout-btn">
-                        <span>
-                          <GiKnifeFork />
-                        </span>
-                        Explore
-                      </button>
-                    </Link>
+                    <button
+                      className="checkout-btn"
+                      onClick={() =>
+                        navigate(`/restaurant/${elem.data.data.id}`)
+                      }
+                    >
+                      <span>
+                        <GiKnifeFork />
+                      </span>
+                      Explore
+                    </button>
                   </Link>
                 </div>
               ))}

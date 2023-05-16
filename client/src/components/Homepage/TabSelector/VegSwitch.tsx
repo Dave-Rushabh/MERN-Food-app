@@ -1,22 +1,15 @@
-import { useEffect, useState, useRef } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { FETCH_ONLY_VEG_RESTAURANTS_TOGGLE } from '../../../../redux/slice/homepageSlice';
 
 const VegSwitch = () => {
-  const [isChecked, setIsChecked] = useState(false);
-  const initialRenderRef = useRef(true);
+  const { isFetchOnlyVeg } = useSelector(
+    (state: any) => state.homepageReducer.tabSelection
+  );
   const dispatch = useDispatch();
 
   const handleToggle = () => {
-    setIsChecked(prevState => !prevState);
+    dispatch(FETCH_ONLY_VEG_RESTAURANTS_TOGGLE());
   };
-
-  useEffect(() => {
-    if (!initialRenderRef.current) {
-      dispatch(FETCH_ONLY_VEG_RESTAURANTS_TOGGLE());
-    }
-    initialRenderRef.current = false;
-  }, [isChecked]);
 
   return (
     <>
@@ -28,7 +21,7 @@ const VegSwitch = () => {
           id="veg-switch"
           type="checkbox"
           className="hidden"
-          checked={isChecked}
+          checked={isFetchOnlyVeg}
           onChange={handleToggle}
         />
         <label
@@ -37,12 +30,12 @@ const VegSwitch = () => {
         >
           <span
             className={`relative inline-block w-10 h-6 rounded-full ${
-              isChecked ? 'bg-app_primary_green' : 'bg-gray-400'
+              isFetchOnlyVeg ? 'bg-app_primary_green' : 'bg-gray-400'
             }`}
           >
             <span
               className={`absolute top-1 left-1 w-4 h-4 rounded-full transition-transform ${
-                isChecked ? 'translate-x-full bg-white' : 'bg-white'
+                isFetchOnlyVeg ? 'translate-x-full bg-white' : 'bg-white'
               }`}
               style={{ transition: 'transform 0.3s' }}
             ></span>
