@@ -1,5 +1,38 @@
 .restaurant-details-wrapper {
   width: 95vw;
   margin: 2rem auto;
-  background-color: red;
+  @apply border-2 p-8 shadow-md rounded-md;
+}
+
+.details-loader {
+  height: 70vh;
+  @apply flex items-center justify-center gap-4;
+}
+
+.name-heart-wrapper {
+  @apply flex justify-between;
+}
+
+.cuisines-area-ratings-wrapper {
+  @apply flex justify-between items-center;
+}
+
+.cuisines-area-wrapper {
+  @apply text-gray-500 my-4;
+}
+
+.reting-info {
+  @apply flex;
+}
+
+.ratings-wrapper {
+  @apply flex flex-col border-2 border-green-500 p-4 rounded-md items-center;
+}
+
+.fee-details {
+  @apply flex items-center gap-2 text-gray-500;
+}
+
+.primary-info-footer {
+  @apply flex gap-8 font-bold text-app_primary_dark;
 }
