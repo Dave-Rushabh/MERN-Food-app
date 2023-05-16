@@ -83,18 +83,18 @@ const InfiniteScrollWrapper = () => {
 
   useEffect(() => {
     const handleScroll = () => {
+      const scrollableHeight =
+        document.documentElement.scrollHeight - window.innerHeight;
+      const scrollPercentage = (window.pageYOffset / scrollableHeight) * 100;
+
       if (
-        window.innerHeight + window.pageYOffset + 1 >=
-        document.documentElement.scrollHeight
+        scrollPercentage >= 85 &&
+        !isFetching &&
+        currentOffset < totalOpenRestaurants &&
+        totalOpenRestaurants - currentOffset > offsetToBeAdded &&
+        !showOnlySearchResults
       ) {
-        if (
-          !isFetching &&
-          currentOffset < totalOpenRestaurants &&
-          totalOpenRestaurants - currentOffset > offsetToBeAdded &&
-          !showOnlySearchResults
-        ) {
-          dispatch(UPDATE_OFFSET(offsetToBeAdded));
-        }
+        dispatch(UPDATE_OFFSET(offsetToBeAdded));
       }
     };
 
