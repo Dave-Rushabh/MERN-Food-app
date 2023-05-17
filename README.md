@@ -44,6 +44,6 @@ I would like to express my gratitude to Akshay Saini for his amazing web series 
 2. Navigate to the project directory.
 3. Install dependencies using `npm install` in both client and server folder.
 4. Start the client development server with `npm run dev`.
-5. Start the backend development server with 'npm run start-server'
+5. Start the backend development server with `npm run start-server`
 
 # MERNStack #ReactJS #Redux #ChakraUI #TailwindCSS #NodeJS #ExpressJS
