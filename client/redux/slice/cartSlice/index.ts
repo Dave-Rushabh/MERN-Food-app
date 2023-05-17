@@ -12,9 +12,23 @@ const cartDetailsSlice = createSlice({
   reducers: {
     // add item from a particular restaurant initially
     ADD_INITIAL_ITEM_IN_CART: (state, action) => {
-      //   const { restaurantId } = action.payload;
+      const { restaurantId } = action.payload;
 
-      state.cart.data = [...state.cart.data, action.payload];
+      const existingRestaurant = state.cart.data.find(
+        (elem: any) => elem?.restaurantId === restaurantId
+      );
+
+      if (existingRestaurant) {
+        state.cart.data.splice(
+          existingRestaurant.foodItems.findIndex(
+            (elem: any) => elem.restaurantId === restaurantId
+          ),
+          1,
+          action.payload
+        );
+      } else {
+        state.cart.data = [...state.cart.data, action.payload];
+      }
     },
 
     // handle further addition or removal after initial addition into the cart
@@ -60,23 +74,22 @@ const cartDetailsSlice = createSlice({
                 ),
                 1
               );
-            }
-          } else {
-            existingRestaurant.foodItems.splice(
-              existingRestaurant.foodItems.findIndex(
-                (elem: any) => elem.foodItemId === foodItemId
-              ),
-              1,
-              fooItemToMapInExistingRestaurant
-            );
+            } else {
+              existingRestaurant.foodItems.splice(
+                existingRestaurant.foodItems.findIndex(
+                  (elem: any) => elem.foodItemId === foodItemId
+                ),
+                1
+              );
 
-            state.cart.data.splice(
-              state.cart.data.findIndex(
-                (elem: any) => elem.restaurantId === restaurantId
-              ),
-              1,
-              existingRestaurant
-            );
+              state.cart.data.splice(
+                state.cart.data.findIndex(
+                  (elem: any) => elem.restaurantId === restaurantId
+                ),
+                1,
+                existingRestaurant
+              );
+            }
           }
         }
       }

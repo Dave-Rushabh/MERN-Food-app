@@ -115,6 +115,15 @@ const renderRecommendedFoodItems = (
               itemAttribute: { portionSize } = {} as any,
             } = info ?? {};
 
+            const cartInfoOfCurrentFoodItem = cartInfo?.find(
+              (elem: any) => elem.restaurantId === restaurantId
+            );
+
+            const currentFoodItemInfo =
+              cartInfoOfCurrentFoodItem?.foodItems?.find(
+                (elem: any) => elem.foodItemId === id
+              );
+
             // logic for adding items into the cart
 
             const getInitialCartPayload = () => {
@@ -173,38 +182,46 @@ const renderRecommendedFoodItems = (
                       />
                     </div>
                     <div className="flex justify-center mt-2 gap-1">
+                      {currentFoodItemInfo?.qty >= 1 && (
+                        <button
+                          className="bg-app_primary_light px-4 py-2 text-white font-semibold text-lg"
+                          onClick={() => {
+                            handleFurtherAddOrRemoveOnCart({
+                              restaurantId,
+                              flag: 'INCREMENT',
+                              foodItemId: id,
+                            });
+                          }}
+                        >
+                          +
+                        </button>
+                      )}
+
                       <button
-                        className="bg-app_primary_light px-4 py-2 text-white font-semibold text-lg"
-                        onClick={() => {
-                          handleFurtherAddOrRemoveOnCart({
-                            restaurantId,
-                            flag: 'INCREMENT',
-                            foodItemId: id,
-                          });
-                        }}
-                      >
-                        +
-                      </button>
-                      <button
-                        className="text-lg bg-app_primary_green text-white w-full py-2"
+                        className="text-lg bg-app_primary_green text-white w-full py-2 disabled:cursor-not-allowed"
                         onClick={() =>
                           addItemToTheCartInitially(getInitialCartPayload())
                         }
+                        disabled={currentFoodItemInfo?.qty >= 1}
                       >
-                        Add
+                        {currentFoodItemInfo?.qty >= 1
+                          ? currentFoodItemInfo?.qty
+                          : 'Add'}
                       </button>
-                      <button
-                        className="bg-app_primary_light px-4 py-2 text-white font-semibold text-lg"
-                        onClick={() => {
-                          handleFurtherAddOrRemoveOnCart({
-                            restaurantId,
-                            flag: 'INCREMENTs',
-                            foodItemId: id,
-                          });
-                        }}
-                      >
-                        -
-                      </button>
+                      {currentFoodItemInfo?.qty >= 1 && (
+                        <button
+                          className="bg-app_primary_light px-4 py-2 text-white font-semibold text-lg"
+                          onClick={() => {
+                            handleFurtherAddOrRemoveOnCart({
+                              restaurantId,
+                              flag: 'INCREMENTs',
+                              foodItemId: id,
+                            });
+                          }}
+                        >
+                          -
+                        </button>
+                      )}
                     </div>
                   </div>
                 </div>
