@@ -23,3 +23,34 @@
 .empty-cart-redirection-btn {
   @apply h-12 w-56  rounded-lg font-semibold bg-app_primary_light text-white hover:bg-app_primary_dark;
 }
+
+.cart-info-wrapper {
+  width: 95vw;
+  margin: 2rem auto;
+  @apply border-2 p-8 shadow-md rounded-md;
+}
+
+.food-item-img-wrapper > img {
+  height: 150px;
+  width: 200px;
+}
+
+.left-side-info {
+  width: 65%;
+}
+
+.right-side-info {
+  width: 35%;
+  display: flex;
+  justify-content: flex-end;
+  gap: 2rem;
+  @apply text-gray-500 font-semibold py-12 my-2;
+}
+
+.img-btn-wrapper {
+  width: 20%;
+}
+
+.name-veg-wrapper {
+  width: 80%;
+}

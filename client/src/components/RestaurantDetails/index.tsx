@@ -139,9 +139,11 @@ const renderRecommendedFoodItems = (
                     {
                       foodItemId: id,
                       foodItemName: name,
+                      imageId: imageId,
                       price: (price || defaultPrice) / 100,
                       deliveryCharge: totalFee / 100,
                       qty: 1,
+                      isVeg,
                     },
                   ],
                 };
@@ -153,9 +155,11 @@ const renderRecommendedFoodItems = (
                     {
                       foodItemId: id,
                       foodItemName: name,
+                      imageId: imageId,
                       price: (price || defaultPrice) / 100,
                       deliveryCharge: totalFee / 100,
                       qty: 1,
+                      isVeg,
                     },
                   ],
                 };
@@ -214,7 +218,7 @@ const renderRecommendedFoodItems = (
                           onClick={() => {
                             handleFurtherAddOrRemoveOnCart({
                               restaurantId,
-                              flag: 'INCREMENTs',
+                              flag: 'DECREMENT',
                               foodItemId: id,
                             });
                           }}
