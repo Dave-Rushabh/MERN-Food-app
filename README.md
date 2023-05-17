@@ -38,6 +38,18 @@ Spice Station is a mockup of an online food delivery giant, inspired by popular 
 ![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/a695428d-b969-4296-b61f-3b0938be4746)
 ![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/74e27afa-ef82-4438-a067-f3390e22b071)
 ![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/b1c15d8f-ad74-4fe4-9e81-482d7b36290c)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/310a89ee-d0af-494e-8fdc-b41b66f78907)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/54491352-9c6d-415b-87ce-9655abe7bc12)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/cca9f116-804d-4865-b5a7-8d2e831b2b05)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/792c050c-7c26-44c9-bde9-d83fcb6992d5)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/c8dccfd0-0410-4f81-8cc2-3a1eb0c4c30b)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/c473e84b-1e6a-4848-9213-e6adb877e89a)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/3d027501-d9d7-4176-9c56-b44faf54d27d)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/6296d1ab-ceff-472e-ac36-1c3fe7fe0beb)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/0b3bae11-da5e-407e-8bd7-91d9ac66e84e)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/431d85ca-38ed-45eb-827c-7b5acbfed2ce)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/84806c01-b629-450b-8731-f7a4b9e7cc06)
+
 
 
 
