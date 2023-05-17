@@ -34,9 +34,12 @@ Spice Station is a mockup of an online food delivery giant, inspired by popular 
 - No feature for order history tracking or real-time delivery status.
 - Location currently fixed as Bengaluru. No option to select different locations.
 
-## Special Thanks
+## Screenshots
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/a695428d-b969-4296-b61f-3b0938be4746)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/74e27afa-ef82-4438-a067-f3390e22b071)
+![image](https://github.com/Dave-Rushabh/MERN-Food-app/assets/93786802/b1c15d8f-ad74-4fe4-9e81-482d7b36290c)
 
-I would like to express my gratitude to Akshay Saini for his amazing web series on React, "Namaste React." His insightful tutorials played a pivotal role in shaping this project.
+
 
 ## Installation
 
